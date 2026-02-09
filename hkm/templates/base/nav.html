@@ -17,6 +17,10 @@
     <a href="{% url 'events' %}" class="nav-item">Event</a>
     <a href="{% url 'home' %}#portfolios" class="nav-item">Portfolios</a>
     <a href="{% url 'contacts' %}" class="nav-item">Contact</a>
+    <a href="{% static 'pdfs/Brochure_2026.pdf' %}" class="nav-brochure" download>
+      <i class="fa-solid fa-download"></i>
+      <span>Brochure</span>
+    </a>
     <a href="{% url 'contacts' %}#get-in-touch" class="nav-cta">Get In Touch</a>
   </div>
 </nav>
