@@ -1,0 +1,1201 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About HKMI – Where Creativity Meets Mastery</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/TextPlugin.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #060606;
+      --card: #171725;
+      --accent: #6366f1;
+      --accent-dark: #4f46e5;
+      --text-color: white;
+      --text-muted: #94a3b8;
+      --primary-red: #e63946;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text-color);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-weight: 400;
+      overflow-x: hidden;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    .font-oswald,
+    .gradient-text,
+    .glow-title,
+    .section-title,
+    #hero-title,
+    #squad-title,
+    #values-title,
+    #final-title {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    button,
+    .font-bold,
+    strong {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 600;
+    }
+
+    .section-pin {
+      height: 100vh;
+      min-height: 800px;
+      display: grid;
+      place-items: center;
+      position: relative;
+    }
+
+    .magnetic-card {
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform;
+      transform-style: preserve-3d;
+    }
+
+    .value-card {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.09), rgba(30, 30, 50, 0.45));
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(99, 102, 241, 0.18);
+      transition: all 0.5s ease;
+    }
+
+    .value-card:hover {
+      transform: translateY(-12px) scale(1.04);
+      box-shadow: 0 25px 60px rgba(99, 102, 241, 0.25);
+    }
+
+    .hero-bg-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom,
+          rgba(0, 0, 0, 0.7),
+          rgba(0, 0, 0, 0.4),
+          rgba(0, 0, 0, 0.8));
+      z-index: 1;
+    }
+
+    .gradient-text {
+      color: #e63946;
+      font-weight: 600;
+      letter-spacing: 4px;
+      display: block;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      font-family: 'Oswald', sans-serif;
+    }
+
+    @keyframes gradientFlow {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .glow-title {
+      color: #e63946;
+      font-weight: 600;
+      letter-spacing: 4px;
+      display: block;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      font-family: 'Oswald', sans-serif;
+      position: relative;
+    }
+
+    .glow-title::after {
+      content: '';
+      position: absolute;
+      inset: -20%;
+      background: radial-gradient(circle at 30% 40%, rgba(99, 102, 241, 0.35) 0%, transparent 60%);
+      opacity: 0.6;
+      filter: blur(60px);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .office-bg {
+      background: url('{% static ' images/hero-bg.png' %}') center/cover no-repeat fixed;
+      background-attachment: fixed;
+    }
+
+    .typed-text {
+      opacity: 0;
+      white-space: pre-wrap;
+      display: inline-block;
+    }
+
+    .cursor {
+      display: inline-block;
+      color: #a5b4fc;
+      animation: blink 0.8s infinite, shake 3s infinite;
+      font-weight: bold;
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0;
+      }
+    }
+
+    @keyframes shake {
+
+      0%,
+      100% {
+        transform: translateX(0);
+      }
+
+      10%,
+      30%,
+      50%,
+      70%,
+      90% {
+        transform: translateX(-2px);
+      }
+
+      20%,
+      40%,
+      60%,
+      80% {
+        transform: translateX(2px);
+      }
+    }
+
+    .hero-glass-card {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.18), rgba(10, 10, 20, 0.75));
+      backdrop-filter: blur(22px);
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+    }
+
+    .overview-card {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(20, 20, 35, 0.85));
+      backdrop-filter: blur(22px);
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      box-shadow: 0 40px 90px rgba(0, 0, 0, 0.65);
+      transition: transform 0.6s ease, box-shadow 0.6s ease;
+      will-change: transform, box-shadow, opacity;
+    }
+
+    .overview-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      border-color: #f6f5f7;
+      box-shadow: 0 20px 35px #f16060 !important;
+    }
+
+    .hero-section {
+      height: 100vh;
+      min-height: 600px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg-overlay {
+      position: absolute;
+      inset: 0;
+    }
+
+    .hero-content-wrapper {
+      position: relative;
+      z-index: 10;
+      height: 100%;
+      display: grid;
+      grid-template-columns: 1fr;
+      align-items: center;
+      padding: 0 5%;
+    }
+
+    .hero-title {
+      font-size: 1.25rem;
+      font-weight: 900;
+      letter-spacing: -0.025em;
+      margin-bottom: 2rem;
+    }
+
+    .hero-subtitle {
+      font-size: 1.125rem;
+      max-width: 100%;
+      color: #d1d5db;
+    }
+
+    .hero-right-card {
+      display: none;
+    }
+
+    .stats-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .stat-label {
+      color: #d1d5db;
+    }
+
+    .stat-value {
+      font-size: 1.875rem;
+      font-weight: 900;
+      color: #818cf8;
+    }
+
+    .cta-button {
+      width: 100%;
+      padding: 1rem;
+      border-radius: 0.75rem;
+      background-color: #4f46e5;
+      font-weight: 600;
+      letter-spacing: 0.025em;
+      transition: background-color 0.3s;
+      border: none;
+      color: white;
+      cursor: pointer;
+      margin-top: 2.5rem;
+    }
+
+    .cta-button:hover {
+      background-color: #4338ca;
+    }
+
+    .overview-section {
+      background: linear-gradient(to bottom, #030712, #000000, #030712);
+      padding: 4rem 5%;
+    }
+
+    .overview-container {
+      max-width: 80rem;
+      margin: 0 auto;
+    }
+
+    .overview-title {
+      font-size: 3rem;
+      font-weight: 900;
+    }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+
+    .overview-main-card {
+      padding: 1.75rem;
+      border-radius: 1rem;
+    }
+
+    .overview-text {
+      color: #e5e7eb;
+      line-height: 1.75;
+      margin-bottom: 0.75rem;
+      font-size: 1rem;
+    }
+
+    .overview-side-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .overview-side-card {
+      padding: 1.5rem;
+      border-radius: 1rem;
+      flex: 1;
+    }
+
+    .overview-side-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 0.75rem;
+    }
+
+    .overview-side-text {
+      color: #d1d5db;
+      font-size: 0.875rem;
+      line-height: 1.75;
+    }
+
+    .squad-section {
+      padding: 4rem 5%;
+      background-color: var(--bg);
+      position: relative;
+    }
+
+    .squad-container {
+      max-width: 80rem;
+      margin: 0 auto;
+    }
+
+    .squad-header {
+      text-align: left;
+      margin-bottom: 3rem;
+    }
+
+    .squad-title {
+      font-size: 3rem;
+      font-weight: 900;
+    }
+
+    .squad-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    .team-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 1.5rem;
+      aspect-ratio: 4/5;
+      background-color: var(--card);
+    }
+
+    .team-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 1s;
+    }
+
+    .team-card:hover img {
+      transform: scale(1.1);
+    }
+
+    .team-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.35), transparent);
+    }
+
+    .team-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 2rem;
+    }
+
+    .team-name {
+      font-size: 1.875rem;
+      font-weight: 700;
+      transform: translateY(0);
+      transition: transform 0.7s;
+    }
+
+    .team-card:hover .team-name {
+      transform: translateY(-4px);
+    }
+
+    .team-role {
+      color: var(--accent);
+      margin-top: 0.25rem;
+      opacity: 0.9;
+      transition: opacity 0.3s;
+    }
+
+    .team-card:hover .team-role {
+      opacity: 1;
+    }
+
+    .final-section {
+      height: 100vh;
+      min-height: 600px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .final-overlay {
+      position: absolute;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.65);
+    }
+
+    .final-content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      padding: 0 5%;
+    }
+
+    .final-title {
+      font-size: 3rem;
+      font-weight: 900;
+      letter-spacing: -0.05em;
+    }
+
+    @media (max-width: 480px) {
+      .hero-section {
+        min-height: 500px;
+      }
+
+      .hero-content-wrapper {
+        padding: 0 1rem;
+      }
+
+      .hero-title {
+        font-size: 1.125rem;
+        margin-bottom: 1.5rem;
+        letter-spacing: 2px;
+      }
+
+      .hero-subtitle {
+        font-size: 0.875rem;
+      }
+
+      .gradient-text {
+        letter-spacing: 2px;
+        font-size: 0.75rem;
+      }
+
+      .glow-title {
+        letter-spacing: 2px;
+        font-size: 0.75rem;
+      }
+
+      .overview-section {
+        padding: 3rem 1rem;
+      }
+
+      .overview-title {
+        font-size: 1.75rem;
+      }
+
+      .overview-main-card {
+        padding: 1.25rem;
+      }
+
+      .overview-text {
+        font-size: 0.875rem;
+      }
+
+      .overview-side-card {
+        padding: 1.25rem;
+      }
+
+      .overview-side-title {
+        font-size: 1.25rem;
+      }
+
+      .overview-side-text {
+        font-size: 0.8125rem;
+      }
+
+      .squad-section {
+        padding: 3rem 1rem;
+      }
+
+      .squad-header {
+        margin-bottom: 2rem;
+      }
+
+      .squad-title {
+        font-size: 2rem;
+      }
+
+      .squad-grid {
+        gap: 1.5rem;
+      }
+
+      .team-info {
+        padding: 1.5rem;
+      }
+
+      .team-name {
+        font-size: 1.5rem;
+      }
+
+      .final-section {
+        min-height: 500px;
+      }
+
+      .final-title {
+        font-size: 2rem;
+      }
+
+      .section-pin {
+        min-height: 500px;
+      }
+    }
+
+    @media (min-width: 481px) and (max-width: 640px) {
+      .hero-title {
+        font-size: 1.5rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1rem;
+      }
+
+      .overview-section {
+        padding: 4rem 2rem;
+      }
+
+      .overview-title {
+        font-size: 2rem;
+      }
+
+      .overview-text {
+        font-size: 1rem;
+      }
+
+      .overview-side-text {
+        font-size: 0.875rem;
+      }
+
+      .squad-section {
+        padding: 4rem 2rem;
+      }
+
+      .squad-title {
+        font-size: 2.5rem;
+      }
+
+      .final-title {
+        font-size: 2.5rem;
+      }
+    }
+
+    @media (min-width: 640px) {
+      .overview-section {
+        padding: 4rem 2rem;
+      }
+
+      .overview-text {
+        font-size: 1.125rem;
+      }
+
+      .overview-side-text {
+        font-size: 1rem;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .squad-section {
+        padding: 8rem 3rem;
+      }
+
+      .squad-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .squad-title {
+        font-size: 3.75rem;
+      }
+
+      .overview-title {
+        font-size: 2.25rem;
+      }
+
+      .final-title {
+        font-size: 4.5rem;
+      }
+
+      .squad-header {
+        margin-bottom: 5rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 1.5rem;
+      }
+
+      .overview-title {
+        font-size: 2rem;
+      }
+
+      .squad-title {
+        font-size: 2.5rem;
+      }
+
+      .final-title {
+        font-size: 2.5rem;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .hero-content-wrapper {
+        grid-template-columns: 1fr 1fr;
+        padding: 0 5rem;
+      }
+
+      .hero-right-card {
+        display: flex;
+        justify-content: center;
+      }
+
+      .hero-card-inner {
+        padding: 2.5rem;
+        border-radius: 1.5rem;
+        width: 420px;
+      }
+
+      .hero-card-title {
+        font-size: 1.875rem;
+        font-weight: 700;
+        margin-bottom: 2rem;
+      }
+
+      .hero-title {
+        font-size: 3rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1rem;
+        max-width: 36rem;
+      }
+
+      .overview-grid {
+        grid-template-columns: 2fr 1fr;
+        gap: 2rem;
+        margin-top: 3rem;
+      }
+
+      .overview-main-card {
+        padding: 2.25rem;
+      }
+
+      .overview-side-cards {
+        gap: 1.75rem;
+      }
+
+      .overview-title {
+        font-size: 3rem;
+      }
+
+      .squad-section {
+        padding: 8rem 6rem;
+      }
+
+      .squad-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 4rem;
+      }
+
+      .squad-title {
+        font-size: 4.5rem;
+      }
+
+      .final-title {
+        font-size: 6rem;
+      }
+
+      .section-pin {
+        min-height: 800px;
+      }
+
+      .hero-section {
+        min-height: 800px;
+      }
+
+      .final-section {
+        min-height: 800px;
+      }
+    }
+
+    .hkmi-heading {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: 2px;
+    }
+
+    .hkmi-white {
+      color: #f3f4f6;
+      font-size: clamp(2rem, 6vw, 5rem);
+      text-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+    }
+
+    .hkmi-highlight {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 0.5rem;
+      position: relative;
+    }
+
+
+
+    .hkmi-red {
+      color: #ef4444;
+      font-size: clamp(1.5rem, 4vw, 3rem);
+      font-weight: 900;
+      text-shadow:
+        0 0 10px rgba(255, 0, 0, 0.6),
+        0 0 25px rgba(255, 0, 0, 0.4),
+        0 10px 30px rgba(0, 0, 0, 0.8);
+    }
+
+    .hero-heading-wrapper {
+      margin-bottom: 2.5rem;
+      /* controls gap */
+    }
+
+    .hero-subtitle {
+      margin-top: 1.5rem;
+      max-width: 720px;
+      line-height: 1.7;
+    }
+
+    .hkmi-heading span {
+      display: inline-block;
+      animation: fadeSlideUp 1.2s ease-out forwards;
+    }
+
+    .hkmi-heading span:nth-child(1) {
+      animation-delay: 0.2s;
+    }
+
+    .hkmi-heading span:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .hkmi-heading span:nth-child(3) {
+      animation-delay: 0.2s;
+    }
+
+    @keyframes fadeSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(60px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  {% include 'base/nav.html' %}
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-bg-overlay office-bg"></div>
+    <div class="hero-bg-overlay"></div>
+
+    <div class="hero-content-wrapper">
+      <div class="heading-accent-wrapper">
+
+
+
+        <div>
+          <h1 class="hkmi-heading">
+            <span class="hkmi-red">ABOUT</span><br>
+            <span class="hkmi-white">HARIKRUSHNA MULTIMEDIA</span><br>
+
+            <div class="hkmi-highlight">
+
+              <span class="hkmi-white">INSTITUTE</span>
+            </div>
+          </h1>
+        </div>
+
+
+        <p class="hero-subtitle" id="hero-subtitle">
+          <span class="typed-text"></span>
+          <span class="cursor">|</span>
+        </p>
+      </div>
+
+      <div class="hero-right-card">
+        <div class="hero-glass-card hero-card-inner">
+
+          <h3 class="hero-card-title gradient-text">
+            Why HKMI?
+          </h3>
+
+          <div class="stats-container">
+            <div class="stat-row">
+              <span class="stat-label">Students Trained</span>
+              <span class="stat-value counter" data-target="2500">0</span>
+            </div>
+
+            <div class="stat-row">
+              <span class="stat-label">Expert Mentors</span>
+              <span class="stat-value counter" data-target="35">0</span>
+            </div>
+
+            <div class="stat-row">
+              <span class="stat-label">Placement Support</span>
+              <span class="stat-value">100%</span>
+            </div>
+          </div>
+
+          <div>
+            <button class="cta-button">
+              Explore Courses
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Overview Section -->
+  <section class="overview-section">
+    <div class="overview-container">
+
+      <h2 class="overview-title gradient-text glow-title" id="values-title">
+        OVERVIEW ABOUT HKMI
+      </h2>
+
+      <div class="overview-grid">
+
+        <div class="overview-card overview-main-card">
+          <p class="overview-text">
+            Harikrushna Multimedia Institute is dedicated to shaping the next generation of creative professionals
+            through a modern approach to multimedia education.
+          </p>
+          <p class="overview-text">
+            Established with a vision to make students industry-ready, we offer skill-based career courses in Animation,
+            VFX, UI/UX Design, Digital Marketing, Video Editing, Graphic Design, and other creative and technical
+            fields.
+          </p>
+          <p class="overview-text">
+            Our training blends theoretical knowledge with hands-on practical experience, ensuring students gain
+            real-world skills while exploring their artistic potential. Guided by experienced instructors and supported
+            by live project exposure, our programs foster innovation, problem-solving, and professional growth.
+          </p>
+          <p class="overview-text">
+            With a focus on the latest technological trends and a user-friendly learning environment, Harikrushna
+            Multimedia empowers students to transform their imagination into career-ready expertise. Our transparent
+            placement support connects students with leading studios and companies, helping them confidently step into
+            the digital creative industry.
+          </p>
+          <p class="overview-text">
+            Become a part of this journey. Learn beyond your imagination and explore new dimensions of the digital
+            world.
+          </p>
+        </div>
+
+        <div class="overview-side-cards">
+
+          <div class="overview-card overview-side-card">
+            <h3 class="overview-side-title">🎯Mission</h3>
+            <p class="overview-side-text">
+              To spread the latest industry knowledge to students and make them employable in their selected job
+              profession.
+            </p>
+          </div>
+
+          <div class="overview-card overview-side-card">
+            <h3 class="overview-side-title">🔭Vision</h3>
+            <p class="overview-side-text">
+              We are committed to producing high-quality manpower to fuel the ever-growing needs of the various
+              verticals of the Media & Entertainment industry.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Squad Section -->
+  <section class="squad-section">
+    <div class="squad-container">
+      <div class="squad-header">
+        <h2 class="squad-title gradient-text glow-title" id="squad-title">
+          Meet the Minds
+        </h2>
+      </div>
+
+      <div class="squad-grid">
+
+        <div class="magnetic-card team-card">
+          <img src="{% static 'images/IMG_6029.PNG' %}" alt="Team member">
+          <div class="team-overlay"></div>
+          <div class="team-info">
+            <h3 class="team-name">Bhushan Surte</h3>
+            <p class="team-role">Director</p>
+          </div>
+        </div>
+
+        <div class="magnetic-card team-card">
+          <img src="{% static 'images/IMG_6024.PNG' %}" alt="Team member">
+          <div class="team-overlay"></div>
+          <div class="team-info">
+            <h3 class="team-name">Lalit Yadav</h3>
+            <p class="team-role">Managing Director</p>
+          </div>
+        </div>
+
+        <div class="magnetic-card team-card">
+          <img src="{% static 'images/IMG_6027.PNG' %}" alt="Team member">
+          <div class="team-overlay"></div>
+          <div class="team-info">
+            <h3 class="team-name">Viky More</h3>
+            <p class="team-role">Director</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  {% include 'base/footer.html' %}
+
+  <script>
+
+    gsap.from("#overview-title", {
+      opacity: 0,
+      y: 120,
+      scale: 0.9,
+      duration: 1.6,
+      ease: "power4.out",
+      scrollTrigger: {
+        trigger: "#overview-title",
+        start: "top 80%"
+      }
+    });
+
+    gsap.from(".overview-card", {
+      opacity: 0,
+      y: 140,
+      duration: 1.8,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: ".overview-card",
+        start: "top 85%"
+      }
+    });
+
+    gsap.to(".overview-card", {
+      scale: 1.015,
+      duration: 4,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut"
+    });
+
+    gsap.to(".hero-glass-card", {
+      y: -18,
+      duration: 3,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut"
+    });
+
+    document.querySelectorAll('.counter').forEach(counter => {
+      const target = +counter.dataset.target;
+      gsap.fromTo(counter,
+        { innerText: 0 },
+        {
+          innerText: target,
+          duration: 2,
+          snap: { innerText: 1 },
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: counter,
+            start: "top 85%"
+          }
+        }
+      );
+    });
+
+    gsap.registerPlugin(ScrollTrigger, TextPlugin);
+
+    gsap.from("#hero-title", {
+      opacity: 0,
+      y: 120,
+      duration: 1.8,
+      ease: "power4.out",
+      scrollTrigger: { trigger: "#hero-title", start: "top 85%" }
+    });
+
+    gsap.to("#hero-title", {
+      backgroundPosition: "300% center",
+      duration: 12,
+      ease: "none",
+      repeat: -1
+    });
+
+    gsap.from("#hero-subtitle", {
+      opacity: 0,
+      y: 60,
+      duration: 1.6,
+      delay: 0.6,
+      ease: "power3.out"
+    });
+
+    ["#squad-title", "#values-title", "#final-title"].forEach((id, i) => {
+      gsap.from(id, {
+        opacity: 0,
+        scale: 0.88,
+        y: 100,
+        duration: 1.6,
+        ease: "power4.out",
+        scrollTrigger: {
+          trigger: id,
+          start: "top 82%",
+        }
+      });
+    });
+
+    document.querySelectorAll('.magnetic-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left - rect.width / 2) / 20;
+        const y = (e.clientY - rect.top - rect.height / 2) / 20;
+
+        gsap.to(card, {
+          x: x * 2.5,
+          y: y * 2.5,
+          rotationY: x * 12,
+          rotationX: -y * 12,
+          duration: 0.7,
+          ease: "power2.out"
+        });
+      });
+
+      card.addEventListener('mouseleave', () => {
+        gsap.to(card, {
+          x: 0,
+          y: 0,
+          rotationY: 0,
+          rotationX: 0,
+          duration: 1.1,
+          ease: "elastic.out(1, 0.5)"
+        });
+      });
+    });
+
+    gsap.utils.toArray(".value-card").forEach(card => {
+      gsap.to(card, {
+        scale: 1.015,
+        duration: 4,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const textElement = document.querySelector('.typed-text');
+      const fullText = `Harikrushna Multimedia Institute offers industry-focused multimedia education for creative careers. We provide skill-based courses in Animation, VFX, UI/UX, Digital Marketing, and Design fields. Our practical training and expert guidance prepare students for real-world industry demands. With placement support, we help students confidently enter the digital creative industry.`;
+
+      const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+";
+      let interval = null;
+      let delayBeforeStart = 800; // ms
+
+      function startScramble() {
+        let iteration = 0;
+
+        clearInterval(interval);
+
+        interval = setInterval(() => {
+          textElement.innerText = fullText
+            .split("")
+            .map((letter, index) => {
+              if (index < iteration) {
+                return fullText[index];
+              }
+              // Scramble a "leading edge" of characters (next 10 chars)
+              if (index < iteration + 10) {
+                return letters[Math.floor(Math.random() * letters.length)];
+              }
+              return "";
+            })
+            .join("");
+
+          if (iteration >= fullText.length) {
+            clearInterval(interval);
+            textElement.innerText = fullText; // Ensure final text is clean
+          }
+
+          // Speed of reveal (higher += faster)
+          iteration += 2;
+        }, 30);
+      }
+
+      setTimeout(() => {
+        textElement.style.opacity = '1';
+        startScramble();
+      }, delayBeforeStart);
+    });
+
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: ".overview-grid",
+        start: "top 78%",
+      }
+    })
+      .from(".overview-main-card", {
+        opacity: 0,
+        y: 100,
+        duration: 1.4,
+        ease: "power4.out"
+      }, 0)
+      .from(".overview-side-card", {
+        opacity: 0,
+        y: 80,
+        duration: 1.3,
+        ease: "power4.out",
+        stagger: 0.16
+      }, 0.25);
+
+  </script>
+
+</body>
+
+</html>
