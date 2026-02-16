@@ -82,9 +82,9 @@ WSGI_APPLICATION = 'hkm.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'hkm_web',
+        'NAME': 'new',
         'USER': 'root',
-        'PASSWORD': 'root',
+        'PASSWORD': 'Abc@2250011',
         'HOST': 'localhost',
         'PORT': '3306',
     }
