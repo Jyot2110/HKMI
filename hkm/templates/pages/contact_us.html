@@ -8,12 +8,26 @@
   <title>Contact Us | Harikrushna Multimedia</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Poppins:wght@300;400;600&display=swap"
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Oswald:wght@400;700&family=Poppins:wght@300;400;600&display=swap"
     rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}?v=20260208">
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Poppins:wght@300;400;600&display=swap');
     @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Poppins:wght@300;400;600&display=swap');
+
+    /* Contact Page: Make navbar visible immediately */
+    .navbar {
+      opacity: 1 !important;
+      visibility: visible !important;
+      transform: translateY(0) !important;
+      background: rgba(29, 53, 87, 0.8) !important;
+    }
+
+    .nav-links a {
+      font-family: 'Inter', sans-serif !important;
+    }
 
     :root {
       --footer-bg: #0f1115;
@@ -37,109 +51,6 @@
       font-family: 'Poppins', sans-serif;
       padding-top: 100px;
       overflow-x: hidden;
-    }
-
-    .navbar {
-      position: fixed;
-      top: 10px;
-      left: 5%;
-      right: 5%;
-      z-index: 1000;
-      padding: 0.8rem 2.5%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-radius: 100px;
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-      background: rgba(29, 53, 87, 0.9);
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    }
-
-    .navbar.scrolled {
-      background: rgba(29, 53, 87, 0.9);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-      top: 10px;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 25px;
-    }
-
-    .nav-links a:not(.nav-cta) {
-      color: var(--white);
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      position: relative;
-      transition: 0.3s;
-    }
-
-    .nav-links a:not(.nav-cta)::after {
-      content: '';
-      position: absolute;
-      bottom: -5px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: var(--primary-red);
-      transition: 0.3s;
-    }
-
-    .nav-links a:not(.nav-cta):hover::after {
-      width: 100%;
-    }
-
-    .nav-cta {
-      background: linear-gradient(135deg, #ff0000 0%, #b30000 100%);
-      color: white !important;
-      padding: 10px 24px;
-      border-radius: 50px;
-      font-weight: 800;
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      text-decoration: none;
-      box-shadow: 0 4px 15px rgba(230, 57, 70, 0.4);
-      transition: all 0.3s ease;
-      border: 2px solid transparent;
-      margin-left: 10px;
-    }
-
-    .nav-cta:hover {
-      transform: translateY(-2px) scale(1.05);
-      background: #ffffff;
-      color: var(--primary-red) !important;
-      border: 2px solid var(--primary-red);
-    }
-
-    .logo-container {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-    }
-
-    .nav-logo {
-      height: 45px;
-      transition: all 0.4s;
-    }
-
-    .logo-text {
-      font-family: 'Oswald', sans-serif;
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--white);
-      text-transform: uppercase;
     }
 
     :root {
@@ -802,14 +713,6 @@
         top: 8px;
       }
 
-      .logo-text {
-        font-size: 1.1rem;
-      }
-
-      .nav-logo {
-        height: 35px;
-      }
-
       .footer-container,
       .contact-container {
         grid-template-columns: 1fr;
@@ -1006,13 +909,7 @@
         top: 5px;
       }
 
-      .logo-text {
-        font-size: 0.95rem;
-      }
 
-      .nav-logo {
-        height: 30px;
-      }
 
       .contact-hero {
         padding: 20px 3% 0 3%;
@@ -1255,7 +1152,7 @@
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js">
   </script>
 
-  <div class="section-title-wrap">
+  <div class="section-title-wrap" id="get-in-touch">
 
     <span class="subtitle">GET IN TOUCH</span>
 
@@ -1398,9 +1295,7 @@
 
       <div class="visual-column">
         <div class="map-placeholder">
-          <div class="cyber-box">
-            <span>MAP VIEW</span>
-          </div>
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d59523.57792012759!2d72.73912841414992!3d21.183273859026404!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be04d275053f069%3A0x94d6c57b9fa1bf01!2sRaj%20Corner!5e0!3m2!1sen!2sin!4v1770802803257!5m2!1sen!2sin" width="400" height="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
       </div>
 
