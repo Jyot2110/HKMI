@@ -137,8 +137,14 @@ STATICFILES_DIRS = [
 STATIC_ROOT = BASE_DIR.parent / 'staticfiles'
 
 
+# Media files (User uploaded files like event images)
+# https://docs.djangoproject.com/en/4.2/howto/static-files/
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR.parent / 'media'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
