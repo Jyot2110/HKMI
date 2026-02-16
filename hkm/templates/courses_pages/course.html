@@ -1,4 +1,3 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Professional Courses | Multimedia Institute</title>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=20260208">
 
     <style>
         :root {
@@ -31,42 +29,9 @@
             background-color: var(--dark-bg);
             color: white;
             min-height: 100vh;
-            /* background-image removed in favor of full .bg-image div below */
-            overflow-x: hidden;
-        }
-
-        /* Background Image & Overlay to match Home Page */
-        .bg-image {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('{% static "images/game-06.jpg" %}');
-            background-size: cover;
-            background-position: center;
-            opacity: 0.3;
-            z-index: -2;
-            filter: brightness(0.6) saturate(1.1);
-        }
-
-        .overlay {
-            position: fixed;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(29, 53, 87, 0.95) 0%, rgba(10, 10, 12, 0.85) 50%, rgba(29, 53, 87, 0.9) 100%);
-            z-index: -1;
-        }
-
-        /* Navbar: Override to match index page styling */
-        .navbar {
-            opacity: 1 !important;
-            visibility: visible !important;
-            transform: translateY(0) !important;
-            background: rgba(29, 53, 87, 0.9) !important;
-        }
-
-        .nav-links a {
-            font-family: 'Inter', sans-serif !important;
+            background-image:
+                radial-gradient(circle at 0% 0%, rgba(230, 57, 70, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 100% 100%, rgba(230, 57, 70, 0.05) 0%, transparent 40%);
         }
 
         /* ================= HEADER ================= */
@@ -347,9 +312,7 @@
 </head>
 
 <body>
-    <div class="bg-image"></div>
-    <div class="overlay"></div>
-    {% include 'base/nav.html' %}
+
     <header class="header-container">
         <h1 class="main-title">
             OUR PROFESSIONAL <span class="highlight">COURSES</span>
@@ -370,7 +333,7 @@
                 <div class="course-content">
                     <h3 class="course-title">Graphics Design</h3>
                     <p class="course-description">Master professional branding, layouts, and visual communication.</p>
-                    <a href="{% url 'Graphics_Design' %}" class="enroll-btn">View course detail</a>
+                    <a href="#" class="enroll-btn">View course detail</a>
                 </div>
             </div>
 
@@ -379,7 +342,7 @@
                 <div class="course-content">
                     <h3 class="course-title">2D Animation</h3>
                     <p class="course-description">Create fluid character movements and professional storytelling.</p>
-                    <a href="{% url '2D_Animation' %}" class="enroll-btn">View course detail</a>
+                    <a href="#" class="enroll-btn">View course detail</a>
                 </div>
             </div>
 
@@ -388,7 +351,7 @@
                 <div class="course-content">
                     <h3 class="course-title">Video Editing</h3>
                     <p class="course-description">Advanced post-production for cinematic and commercial projects.</p>
-                    <a href="{% url 'Video_Editing' %}" class="enroll-btn">View course detail</a>
+                    <a href="#" class="enroll-btn">View course detail</a>
                 </div>
             </div>
 
@@ -397,7 +360,7 @@
                 <div class="course-content">
                     <h3 class="course-title">3D Animation</h3>
                     <p class="course-description">Advanced character modeling, rigging, and virtual world-building.</p>
-                    <a href="{% url '3D_Animation' %}" class="enroll-btn">View course detail</a>
+                    <a href="#" class="enroll-btn">View course detail</a>
                 </div>
             </div>
 
@@ -406,7 +369,7 @@
                 <div class="course-content">
                     <h3 class="course-title">3D Architectural</h3>
                     <p class="course-description">Develop photorealistic interior and exterior visualizations.</p>
-                    <a href="{% url '3D_Architectural' %}" class="enroll-btn">View course detail</a>
+                    <a href="#" class="enroll-btn">View course detail</a>
                 </div>
             </div>
 
@@ -415,7 +378,7 @@
                 <div class="course-content">
                     <h3 class="course-title">UI/UX Design</h3>
                     <p class="course-description">Design seamless high-fidelity user journeys and interfaces.</p>
-                    <a href="{% url 'UI_UX_Design' %}" class="enroll-btn">View course detail</a>
+                    <a href="#" class="enroll-btn">View course detail</a>
                 </div>
             </div>
 
@@ -424,7 +387,7 @@
                 <div class="course-content">
                     <h3 class="course-title">3D Jewellery</h3>
                     <p class="course-description">Precision digital jewelry design and 3D print preparation.</p>
-                    <a href="{% url 'Creative_Design' %}" class="enroll-btn">View course detail</a>
+                    <a href="#" class="enroll-btn">View course detail</a>
                 </div>
             </div>
 
@@ -433,7 +396,7 @@
                 <div class="course-content">
                     <h3 class="course-title">Digital Marketing</h3>
                     <p class="course-description">Growth strategies using SEO, data analytics, and SMM.</p>
-                    <a href="{% url 'Digital_Marketing' %}" class="enroll-btn">View course detail</a>
+                    <a href="#" class="enroll-btn">View course detail</a>
                 </div>
             </div>
 
@@ -442,7 +405,7 @@
                 <div class="course-content">
                     <h3 class="course-title">VFX Effects</h3>
                     <p class="course-description">Master high-end cinematic compositing and simulations.</p>
-                    <a href="{% url 'Visual_Effect' %}" class="enroll-btn">View course detail</a>
+                    <a href="#" class="enroll-btn">View course detail</a>
                 </div>
             </div>
 
@@ -451,7 +414,7 @@
                 <div class="course-content">
                     <h3 class="course-title">C / C++ / Python</h3>
                     <p class="course-description">Build a rock-solid foundation in world-class software logic.</p>
-                    <a href="{% url 'Lang_Course' %}" class="enroll-btn">View course detail</a>
+                    <a href="#" class="enroll-btn">View course detail</a>
                 </div>
             </div>
 
@@ -460,7 +423,7 @@
                 <div class="course-content">
                     <h3 class="course-title">Game Design</h3>
                     <p class="course-description">Create immersive gameplay experiences from logic to final render.</p>
-                    <a href="{% url 'Game_Design' %}" class="enroll-btn">View course detail</a>
+                    <a href="#" class="enroll-btn">View course detail</a>
                 </div>
             </div>
 
@@ -469,7 +432,7 @@
                 <div class="course-content">
                     <h3 class="course-title">Android Dev</h3>
                     <p class="course-description">Develop scalable and high-performance apps for mobile.</p>
-                    <a href="{% url 'Android_Development' %}" class="enroll-btn">View course detail</a>
+                    <a href="#" class="enroll-btn">View course detail</a>
                 </div>
             </div>
 
@@ -562,10 +525,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             setupGamingTextAnimation();
         });
-
     </script>
-    {% include 'base/footer.html' %}
-    <script src="{% static 'js/script.js' %}?v=20260209"></script>
 </body>
 
 </html>

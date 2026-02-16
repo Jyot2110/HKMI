@@ -81,8 +81,12 @@ WSGI_APPLICATION = 'hkm.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'dbjyot',
+        'USER': 'root',
+        'PASSWORD': 'Abc@2250011',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 
@@ -133,8 +137,14 @@ STATICFILES_DIRS = [
 STATIC_ROOT = BASE_DIR.parent / 'staticfiles'
 
 
+# Media files (User uploaded files like event images)
+# https://docs.djangoproject.com/en/4.2/howto/static-files/
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR.parent / 'media'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+

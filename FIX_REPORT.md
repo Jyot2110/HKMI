@@ -41,4 +41,145 @@ CSS background paths were broken, and testimonial images were missing locally.
 - Replaced missing local images with high-quality **Unsplash placeholders** to maintain a premium aesthetic.
 - Corrected relative paths in the central stylesheet to ensure images appear in all sections.
 
-**The server is now stable, routing is synchronized, and your project is ready for testing at `/contacts`.**
+## 6. Course Page Navigation
+### Problem:
+- Clicking "Course" links or "view details" buttons either didn't redirect or led to incorrect paths.
+- The `courses` app URL configuration was using a `home/` prefix, which was inconsistent with the expected `/courses/` endpoint.
+### Fix:
+- **URL Synchronization**: Updated `hkm/apps/courses/urls.py` to use an empty path (`''`), allowing the main project configuration to expose the app at `/courses/`.
+- **Button Linking**: Updated "Explore More Courses" and all "view details" buttons in `index.html` to point to the `courses` URL.
+- **Footer Updates**: Ensured the "Courses" quick link in the footer consistently redirects to the standalone course page.
+
+## 7. Event & Course Page Rendering
+### Problem:
+- The Course and Event pages were not rendering due to syntax errors and naming inconsistencies in the URL configurations.
+- Specifically, `apps/events/urls.py` had a typo (`uurlpatterns`), and the Course app used a name (`courses_home`) that didn't match the navigation links.
+### Fix:
+- **Syntax Correction**: Fixed the `uurlpatterns` typo in `apps/events/urls.py`.
+- **Naming Alignment**: Updated the URL name in `apps/courses/urls.py` from `courses_home` to `courses` to match the navbar links.
+- **Global Integration**: Confirmed that both modules are correctly registered in the main `hkm/urls.py` so they are accessible via `/courses/` and `/events/`.
+
+## 8. Navbar, Footer, and Header Standardization (2026-02-08)
+### Problem:
+- Inconsistent navbar styling across Contact, Course, and Event pages (fonts, opacity).
+- Navbar logo sizing issues (too small/large).
+- Footer copyright text broken by animation script.
+- Header spacing inconsistent between "Institute Courses", "Student Work", and "Placed Students" sections.
+
+### Fix:
+- **Navbar Consistency**: Updated all secondary pages (`contact_us.html`, `course.html`, `event.html`) to share exact styling with the home page, including font overrides and background opacity.
+- **Logo Optimization**: Extensively tested and finalized logo dimensions to 45px height / 135px width.
+- **Deep Linking**: Implemented smooth scrolling for the "Get In Touch" button directly to the contact form section (`#get-in-touch`).
+- **Footer Fixes**: Removed fragile animation from copyright text to ensure proper centering and readability; centered footer content with Flexbox.
+- **Header Standardization**: Aligned `portfolio-header` and `placed-students-header` styling (padding, font sizes, margins) to match the `course-header`, ensuring a cohesive visual rhythm across the site.
+
+## 9. Course Detail Navigation, URL Linking & Navbar Behavior (2026-02-09)
+### Problem:
+- **Back to Gallery Links**: The "Back to Gallery" button on individual course pages (`Game_Design.html`, `3d-animation.html`, etc.) was hardcoded to `index.html` or `#`, failing to correctly navigate users back to the previous page/context.
+- **404 Errors on Course Pages**: Specifically, `Graphics_Animation` was redirecting to `/courses/graphics-animation/index.html` because of the relative link `index.html`, which didn't exist.
+- **Missing Course Links**: The course overview page (`course.html`) and the home page (`index.html`) had placeholder links (`#`) for all "View Details" buttons.
+- **Navbar Inconsistency**: The navbar on the `index` page was hidden by default and only appeared on scroll, whereas on other pages it was always visible.
+- **Browser Caching Issue**: Chrome was caching the JavaScript file, causing the scrolling animation fix to not appear immediately.
+
+### Fix:
+- **Smart Back Navigation**: Updated the "Back to Gallery" link in all 11 course templates to use `javascript:history.back()`. This ensures users return exactly to where they came from (e.g., the specific list position).
+- **Template URL Linking**: Updated all "View Details" buttons in `course.html` and `index.html` to use the correct Django `{% url 'Name' %}` tags (e.g., `Graphics_Design`, `2D_Animation`), fixing all broken links across the catalog and homepage.
+- **Navbar Standardization**:
+    - Modified `style.css` to remove the initial hidden state (`opacity: 0`, `visibility: hidden`) of the navbar.
+    - Set the navbar background to solid blue (`rgba(29, 53, 87, 0.8)`) by default.
+    - Commented out the scroll event listener in `script.js` that toggled the `.scrolled` class, ensuring the navbar remains static and consistent across the index page.
+- **Cache Busting**: Added a version query string (`?v=20260209`) to the `script.js` inclusion in `index.html` and `course.html` to force browsers to reload the updated JavaScript file.
+- **Brochure Download**: Verified the implementation of the brochure download button in the navigation bar (`nav.html`), ensuring it points to `{% static 'pdfs/Brochure_2026.pdf' %}` with the correct `download` attribute.
+
+## 10. Course Page Visual Enhancements & Consistency (2026-02-11)
+### Problem:
+- **Visual Distinction**: The Course Overview page needed a distinct visual identity while maintaining brand consistency with the Home page.
+- **Background Loading**: The background image required specific filtering to ensure text readability which was not covered by the global CSS.
+- **Text Animation**: The "Gaming Text" animation effect used on the Home page headers was missing from the Course page headers.
+
+### Fix:
+- **Custom Background**: Applied a page-specific background overlay in `course.html` using inline CSS (`.bg-image`) with a specific image (`game-06.jpg`) and filters (`brightness(0.6) saturate(1.1)`) to create a premium, dark-themed aesthetic.
+- **Animation Integration**: Integrated the "Gaming Text Animation" system directly into `course.html` via an inline script, applying the split-text reveal effect to the main "OUR PROFESSIONAL COURSES" header and subtitles.
+- **Scroll Replay**: configured an `IntersectionObserver` to trigger the text animation when elements scroll into view, ensuring a dynamic user experience.
+
+## 11. Footer Functionality & Contact Page Map Integration (2026-02-11)
+### Problem:
+- **Broken Footer Links**: Most links in the footer's "Quick Links" and "Our Courses" sections were placeholders (`#`), making navigation from the bottom of the page impossible.
+- **Static Map Placeholder**: The Contact page featured a "MAP VIEW" box that didn't contain an actual map, reducing the page's utility.
+- **Outdated Contact Info**: The footer email was pointing to a generic address instead of the official Gmail account.
+
+### Fix:
+- **Footer Link Activation**: Updated `footer.html` to use correct Django `{% url %}` tags for all 12+ links:
+    - Integrated anchor links (e.g., `{% url 'home' %}#about-us`) for internal page navigation.
+    - Linked all 6 primary courses in the footer to their respective detail pages.
+- **Live Google Map Integration**: 
+    - Embedded a live Google Maps iframe for "Raj Corner" in `contact_us.html`.
+    - Optimized for responsiveness by setting `width="100%"` and `height="100%"` inside the `.map-placeholder` container (which scales from 500px to 220px based on device).
+- **Content Synchronization**: Corrected the footer email address to `harikrushnamultimedia@gmail.com` to match the institution's official contact channel.
+
+## 12. Event Page Dynamic Integration & Media Handling (2026-02-16)
+### Problem:
+- **Static Content**: The event page was using hardcoded HTML cards, making it difficult for the user to add new events without editing code.
+- **Missing Image Support**: Django was not configured to handle user-uploaded images, leading to broken links or a lack of dynamic visuals.
+- **Performance Risk**: Fetching all events from the database at once could slow down the page as the event list grows.
+- **Handling Inconsistency**: Need for a clear choice between using the `static/` directory versus the standard `media/` directory for user-uploaded content.
+
+### Solution:
+- **Dynamic Template Loop**: Replaced manual HTML cards with a `{% for event in events %}` loop, enabling automatic card creation for every database entry.
+- **Proper Media Configuration**: 
+    - Configured `MEDIA_URL = '/media/'` and `MEDIA_ROOT` in `settings.py` for standard Django file handling.
+    - Updated `urls.py` to serve these files during development via `static(settings.MEDIA_URL, ...)`.
+- **Queryset Optimization**: Updated the view logic to order events by date (`-event_date`) and limit the display to the **latest 6 events** using slicing (`[:6]`).
+- **Standardized Uploads**: Configured the `Event` model to save images to the `events/` subdirectory within the `media/` folder.
+
+### 💡 Event Page Concept & Flow (How it Works)
+
+The event system follows a clean "Data-to-Display" flow, ensuring that a beginner can manage it easily through the Admin panel.
+
+#### 1. Data Structure (The Model)
+We defined an `Event` class in `models.py`. The key field is `image = models.ImageField(upload_to='events/')`. 
+*   **Why?** This tells Django: "When an image is uploaded, save it inside the `media/events/` folder."
+
+#### 2. The Configuration (The Pipeline)
+*   **Settings**: `MEDIA_ROOT` defines *where* the files live on your computer. `MEDIA_URL` defines the *web address* used to see them.
+*   **URLs**: We told Django's routing system to look in the `media` folder whenever a URL starts with `/media/`.
+
+#### 3. The Logic (The View)
+In `views.py`, we use `Event.objects.all().order_by('-event_date')[:6]`.
+*   **Concept**: This acts as a "filter." It grabs all events, puts the newest ones first, and then keeps only the top 6. This keeps the "Recent Glimpse" section clean and fast.
+
+#### 4. The Loop (The Template)
+In `event.html`, the magic happens with the **loop**:
+```html
+{% for event in events %}
+    <div class="media-card">
+        <!-- Django generates the URL automatically -->
+        <img src="{{ event.image.url }}"> 
+        <h3>{{ event.title }}</h3>
+        <p>{{ event.description }}</p>
+    </div>
+{% endfor %}
+```
+*   **Step-by-Step Display**: For every single event found in Step 3, Django "clones" the card HTML and fills in the specific image, title, and description.
+
+### ✅ Coding Steps Summary:
+1.  **Define**: Created `Event` model with `ImageField`.
+2.  **Migrate**: Ran `makemigrations` and `migrate` to update the database.
+3.  **Configure**: Added Media settings and URL patterns.
+4.  **Fetch**: Wrote the view function to grab 6 recent events.
+5.  **Render**: Used the `{% for %}` loop in the HTML to display the data dynamically.
+
+---
+## Summary of Fixed Navigation:
+| Link | Destination | Type |
+| :--- | :--- | :--- |
+| Home | `/` | URL Name: `home` |
+| About Us | `/` (About Section) | Anchor: `#about-us` |
+| Courses | `/courses/` | URL Name: `courses` |
+| Events | `/events/` | URL Name: `events` |
+| Contact | `/contacts/` | URL Name: `contacts` |
+| Course Details | `/courses/[name]/` | Specific Detail Views |
+
+All mission-critical navigation paths are now fully operational across the Header, Footer, and Page Content.
+
+

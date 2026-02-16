@@ -988,70 +988,26 @@
 
         <div class="chronicles-grid">
 
-            <!-- 1. Video card – full width on top -->
-            <div class="media-card video-card">
-                <div class="media-visual-area">
-                    <div class="video-container">
-                        <!-- You can keep a thumbnail, or later replace with <video> or iframe -->
-                        <img src="{% static 'images/game-01.jpg' %}" alt="Behind the Scenes 2024" class="media-img">
-                        <div class="play-button">
-                            <svg width="40" height="40" viewBox="0 0 24 24" fill="white">
-                                <path d="M8 5v14l11-7z" />
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="media-label">
-                        <span>Featured Video</span>
-                        <h3>Behind the Scenes 2024</h3>
-                    </div>
-                    <!-- Optional: details drawer if you want to use the same toggle mechanism -->
-                    <div class="details-drawer">
-                        <p>Exclusive look at the making of our latest project – tools, workflow, and team moments.</p>
-                    </div>
-                </div>
-                <button class="view-detail-btn" onclick="toggleDetails(this.closest('.media-card'))">
-                    View Details
-                </button>
-            </div>
 
             <!-- 2. Image cards – grouped in 2-column layout below the video -->
             <div class="image-cards-row">
-
-                <div class="media-card image-card" id="card-img-1">
+                {% for event in events %}
+                <div class="media-card image-card">
                     <div class="media-visual-area">
-                        <img src="{% static 'images/game-02.jpg' %}" alt="Character Sculpting Workshop"
-                            class="media-img">
+                        <img src="{{ event.image.url }}" alt="{{ event.title }}" class="media-img">
                         <div class="media-label">
-                            <span>Workshop</span>
-                            <h3>Character Sculpting</h3>
+                            <span>Event</span>
+                            <h3>{{ event.title }}</h3>
                         </div>
                         <div class="details-drawer">
-                            <p>An intensive workshop focusing on anatomy, high-fidelity skin detailing,
-                                and realistic texturing workflows using the latest industry-standard tools.</p>
+                            <p>{{ event.description }}</p>
                         </div>
                     </div>
                     <button class="view-detail-btn" onclick="toggleDetails(this.closest('.media-card'))">
                         View Details
                     </button>
                 </div>
-
-                <div class="media-card image-card" id="card-img-2">
-                    <div class="media-visual-area">
-                        <img src="{% static 'images/game-03.jpg' %}" alt="Cinematic Lighting Masterclass"
-                            class="media-img">
-                        <div class="media-label">
-                            <span>Masterclass</span>
-                            <h3>Cinematic Lighting</h3>
-                        </div>
-                        <div class="details-drawer">
-                            <p>Deep dive into expert lighting techniques using Ray Tracing, Lumen,
-                                and real-time global illumination for cinematic-quality environments.</p>
-                        </div>
-                    </div>
-                    <button class="view-detail-btn" onclick="toggleDetails(this.closest('.media-card'))">
-                        View Details
-                    </button>
-                </div>
+                {% endfor %}
 
                 <!-- You can easily add more image cards here -->
                 <!--

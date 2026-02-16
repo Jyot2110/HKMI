@@ -232,7 +232,8 @@
                 </p>
                 <div class="social-links">
                     <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.instagram.com/harikrushna_multimedia?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+                        class="social-icon"><i class="fab fa-instagram"></i></a>
                     <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
                     <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
                 </div>
@@ -241,24 +242,24 @@
             <div class="footer-col">
                 <h3 class="col-title anim-text">Quick Links</h3>
                 <ul class="footer-links">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Courses</a></li>
-                    <li><a href="#">Student Work</a></li>
-                    <li><a href="#">Gallery</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'home' %}#about-us">About Us</a></li>
+                    <li><a href="{% url 'courses' %}">Courses</a></li>
+                    <li><a href="{% url 'home' %}#portfolios">Portfolios</a></li>
+                    <li><a href="{% url 'events' %}">Event</a></li>
+                    <li><a href="{% url 'contacts' %}">Contact</a></li>
                 </ul>
             </div>
 
             <div class="footer-col">
                 <h3 class="col-title anim-text">Our Courses</h3>
                 <ul class="footer-links">
-                    <li><a href="#">3D Animation</a></li>
-                    <li><a href="#">VFX</a></li>
-                    <li><a href="#">Graphics Design</a></li>
-                    <li><a href="#">Video Editing</a></li>
-                    <li><a href="#">Full Stack Development</a></li>
-                    <li><a href="#">Flutter Development</a></li>
+                    <li><a href="{% url 'Graphics_Design' %}">Graphics Design</a></li>
+                    <li><a href="{% url '2D_Animation' %}">2D Animation</a></li>
+                    <li><a href="{% url 'Video_Editing' %}">Video Editing</a></li>
+                    <li><a href="{% url '3D_Animation' %}">3D Animation</a></li>
+                    <li><a href="{% url '3D_Architectural' %}">3D Architectural</a></li>
+                    <li><a href="{% url 'UI_UX_Design' %}">UI/UX Design</a></li>
                 </ul>
             </div>
 
@@ -278,7 +279,7 @@
 
                     <p>
                         <i class="fas fa-envelope email-icon"></i>
-                        <a href="mailto:info@hkm.edu">info@hkm.edu</a>
+                        <a href="mailto:info@hkm.edu">harikrushnamultimedia@gmail.com</a>
                     </p>
                 </div>
                 <a href="#" class="btn-verify anim-text">Verify Student Certificate</a>
