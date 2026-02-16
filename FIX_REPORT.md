@@ -117,6 +117,59 @@ CSS background paths were broken, and testimonial images were missing locally.
     - Optimized for responsiveness by setting `width="100%"` and `height="100%"` inside the `.map-placeholder` container (which scales from 500px to 220px based on device).
 - **Content Synchronization**: Corrected the footer email address to `harikrushnamultimedia@gmail.com` to match the institution's official contact channel.
 
+## 12. Event Page Dynamic Integration & Media Handling (2026-02-16)
+### Problem:
+- **Static Content**: The event page was using hardcoded HTML cards, making it difficult for the user to add new events without editing code.
+- **Missing Image Support**: Django was not configured to handle user-uploaded images, leading to broken links or a lack of dynamic visuals.
+- **Performance Risk**: Fetching all events from the database at once could slow down the page as the event list grows.
+- **Handling Inconsistency**: Need for a clear choice between using the `static/` directory versus the standard `media/` directory for user-uploaded content.
+
+### Solution:
+- **Dynamic Template Loop**: Replaced manual HTML cards with a `{% for event in events %}` loop, enabling automatic card creation for every database entry.
+- **Proper Media Configuration**: 
+    - Configured `MEDIA_URL = '/media/'` and `MEDIA_ROOT` in `settings.py` for standard Django file handling.
+    - Updated `urls.py` to serve these files during development via `static(settings.MEDIA_URL, ...)`.
+- **Queryset Optimization**: Updated the view logic to order events by date (`-event_date`) and limit the display to the **latest 6 events** using slicing (`[:6]`).
+- **Standardized Uploads**: Configured the `Event` model to save images to the `events/` subdirectory within the `media/` folder.
+
+### 💡 Event Page Concept & Flow (How it Works)
+
+The event system follows a clean "Data-to-Display" flow, ensuring that a beginner can manage it easily through the Admin panel.
+
+#### 1. Data Structure (The Model)
+We defined an `Event` class in `models.py`. The key field is `image = models.ImageField(upload_to='events/')`. 
+*   **Why?** This tells Django: "When an image is uploaded, save it inside the `media/events/` folder."
+
+#### 2. The Configuration (The Pipeline)
+*   **Settings**: `MEDIA_ROOT` defines *where* the files live on your computer. `MEDIA_URL` defines the *web address* used to see them.
+*   **URLs**: We told Django's routing system to look in the `media` folder whenever a URL starts with `/media/`.
+
+#### 3. The Logic (The View)
+In `views.py`, we use `Event.objects.all().order_by('-event_date')[:6]`.
+*   **Concept**: This acts as a "filter." It grabs all events, puts the newest ones first, and then keeps only the top 6. This keeps the "Recent Glimpse" section clean and fast.
+
+#### 4. The Loop (The Template)
+In `event.html`, the magic happens with the **loop**:
+```html
+{% for event in events %}
+    <div class="media-card">
+        <!-- Django generates the URL automatically -->
+        <img src="{{ event.image.url }}"> 
+        <h3>{{ event.title }}</h3>
+        <p>{{ event.description }}</p>
+    </div>
+{% endfor %}
+```
+*   **Step-by-Step Display**: For every single event found in Step 3, Django "clones" the card HTML and fills in the specific image, title, and description.
+
+### ✅ Coding Steps Summary:
+1.  **Define**: Created `Event` model with `ImageField`.
+2.  **Migrate**: Ran `makemigrations` and `migrate` to update the database.
+3.  **Configure**: Added Media settings and URL patterns.
+4.  **Fetch**: Wrote the view function to grab 6 recent events.
+5.  **Render**: Used the `{% for %}` loop in the HTML to display the data dynamically.
+
+---
 ## Summary of Fixed Navigation:
 | Link | Destination | Type |
 | :--- | :--- | :--- |
@@ -128,4 +181,5 @@ CSS background paths were broken, and testimonial images were missing locally.
 | Course Details | `/courses/[name]/` | Specific Detail Views |
 
 All mission-critical navigation paths are now fully operational across the Header, Footer, and Page Content.
+
 
