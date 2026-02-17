@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en" class="dark">
 
@@ -7,7 +6,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About HKMI – Where Creativity Meets Mastery</title>
-
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
@@ -17,8 +15,16 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
     rel="stylesheet">
-
+  <link rel="stylesheet" href="{% static 'css/style.css' %}?v=20260208">
   <style>
+    /* Navbar Visibility Override */
+    .navbar {
+      opacity: 1 !important;
+      visibility: visible !important;
+      transform: translateY(0) !important;
+      background: rgba(29, 53, 87, 0.8) !important;
+    }
+
     :root {
       --bg: #060606;
       --card: #171725;
@@ -81,30 +87,14 @@
     }
 
     .magnetic-card {
-      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-      will-change: transform;
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
       transform-style: preserve-3d;
-    }
-
-    .value-card {
-      background: linear-gradient(135deg, rgba(99, 102, 241, 0.09), rgba(30, 30, 50, 0.45));
-      backdrop-filter: blur(18px);
-      border: 1px solid rgba(99, 102, 241, 0.18);
-      transition: all 0.5s ease;
-    }
-
-    .value-card:hover {
-      transform: translateY(-12px) scale(1.04);
-      box-shadow: 0 25px 60px rgba(99, 102, 241, 0.25);
     }
 
     .hero-bg-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to bottom,
-          rgba(0, 0, 0, 0.7),
-          rgba(0, 0, 0, 0.4),
-          rgba(0, 0, 0, 0.8));
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.8));
       z-index: 1;
     }
 
@@ -116,20 +106,6 @@
       font-size: 0.9rem;
       text-transform: uppercase;
       font-family: 'Oswald', sans-serif;
-    }
-
-    @keyframes gradientFlow {
-      0% {
-        background-position: 0% 50%;
-      }
-
-      50% {
-        background-position: 100% 50%;
-      }
-
-      100% {
-        background-position: 0% 50%;
-      }
     }
 
     .glow-title {
@@ -147,17 +123,18 @@
       content: '';
       position: absolute;
       inset: -20%;
-      background: radial-gradient(circle at 30% 40%, rgba(99, 102, 241, 0.35) 0%, transparent 60%);
-      opacity: 0.6;
-      filter: blur(60px);
+      background: radial-gradient(circle at 30% 40%, rgba(99, 102, 241, 0.25) 0%, transparent 60%);
+      opacity: 0.5;
+      filter: blur(40px);
       pointer-events: none;
       z-index: -1;
     }
 
     .office-bg {
-      background: url('{% static ' images/hero-bg.png' %}') center/cover no-repeat fixed;
+      background: url("{% static 'images/hero-bg.png' %}") center/cover no-repeat fixed;
       background-attachment: fixed;
     }
+
 
     .typed-text {
       opacity: 0;
@@ -209,24 +186,9 @@
 
     .hero-glass-card {
       background: linear-gradient(135deg, rgba(99, 102, 241, 0.18), rgba(10, 10, 20, 0.75));
-      backdrop-filter: blur(22px);
+      backdrop-filter: blur(12px);
       border: 1px solid rgba(99, 102, 241, 0.25);
       box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
-    }
-
-    .overview-card {
-      background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(20, 20, 35, 0.85));
-      backdrop-filter: blur(22px);
-      border: 1px solid rgba(99, 102, 241, 0.25);
-      box-shadow: 0 40px 90px rgba(0, 0, 0, 0.65);
-      transition: transform 0.6s ease, box-shadow 0.6s ease;
-      will-change: transform, box-shadow, opacity;
-    }
-
-    .overview-card:hover {
-      transform: translateY(-10px) scale(1.02);
-      border-color: #f6f5f7;
-      box-shadow: 0 20px 35px #f16060 !important;
     }
 
     .hero-section {
@@ -234,11 +196,6 @@
       min-height: 600px;
       position: relative;
       overflow: hidden;
-    }
-
-    .hero-bg-overlay {
-      position: absolute;
-      inset: 0;
     }
 
     .hero-content-wrapper {
@@ -251,17 +208,12 @@
       padding: 0 5%;
     }
 
-    .hero-title {
-      font-size: 1.25rem;
-      font-weight: 900;
-      letter-spacing: -0.025em;
-      margin-bottom: 2rem;
-    }
-
     .hero-subtitle {
       font-size: 1.125rem;
       max-width: 100%;
       color: #d1d5db;
+      margin-top: 1.5rem;
+      line-height: 1.7;
     }
 
     .hero-right-card {
@@ -308,9 +260,10 @@
       background-color: #4338ca;
     }
 
+    /* ========== OVERVIEW SECTION ========== */
     .overview-section {
       background: linear-gradient(to bottom, #030712, #000000, #030712);
-      padding: 4rem 5%;
+      padding: 4rem 5% 6rem 5%;
     }
 
     .overview-container {
@@ -319,56 +272,192 @@
     }
 
     .overview-title {
-      font-size: 3rem;
+      font-size: clamp(2rem, 5vw, 4rem);
       font-weight: 900;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      line-height: 1;
+      opacity: 1;
     }
 
-    .overview-grid {
+    .accent-bar-vertical {
+      width: 12px;
+      height: 80px;
+      background: linear-gradient(to bottom, #e63946, #b22d35);
+      border-radius: 4px;
+      box-shadow: 0 0 25px rgba(230, 57, 70, 0.5);
+      flex-shrink: 0;
+      opacity: 1;
+    }
+
+    .heading-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .overview-card-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 1.5rem;
-      margin-top: 2.5rem;
+      gap: 2rem;
+      margin-top: 2rem;
     }
 
-    .overview-main-card {
-      padding: 1.75rem;
-      border-radius: 1rem;
+    .overview-card {
+      position: relative;
+      background: #0f0f1a;
+      border-radius: 12px;
+      padding: 3rem 2.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      opacity: 1 !important;
+      visibility: visible !important;
+      transition: all 0.4s ease;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    /* Red Accent Bars - Animated Moving Effect */
+    .overview-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, #e63946, #ff4d6d, #e63946);
+      background-size: 200% 100%;
+      transition: height 0.4s ease;
+      z-index: 5;
+    }
+
+    /* Small cards get top bar, Big card gets bottom bar (matching image style) */
+    .overview-card.accent-top::before {
+      top: 0;
+    }
+
+    .overview-card.accent-bottom::before {
+      bottom: 0;
+    }
+
+    .overview-card:hover::before {
+      height: 6px;
+      box-shadow: 0 0 15px rgba(230, 57, 70, 0.6);
+      animation: bar-move 2s linear infinite;
+    }
+
+    @keyframes bar-move {
+      0% {
+        background-position: 200% 0;
+      }
+
+      100% {
+        background-position: 0 0;
+      }
+    }
+
+    .overview-card:hover {
+      border-color: rgba(230, 57, 70, 0.5);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+    }
+
+    /* Background Image Placeholder & Overlay */
+    .card-bg-image {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0.15;
+      filter: grayscale(100%);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      z-index: -1;
+    }
+
+    .overview-card:hover .card-bg-image {
+      opacity: 0.3;
+      transform: scale(1.1);
+      filter: grayscale(0%);
+    }
+
+    .card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(15, 15, 26, 0.95), rgba(15, 15, 26, 0.6));
+      z-index: 0;
+    }
+
+    .mv-icon-wrapper {
+      position: relative;
+      z-index: 2;
+      /* Rest of styling... */
+      margin-bottom: 2rem;
+    }
+
+    .mv-title {
+      position: relative;
+      z-index: 2;
+      font-size: 2.25rem;
+      font-weight: 900;
+      color: white;
+      margin-bottom: 1.25rem;
+      font-family: 'Oswald', sans-serif;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      line-height: 1.1;
+    }
+
+    .mv-text {
+      position: relative;
+      z-index: 2;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 1.125rem;
+      line-height: 1.6;
+    }
+
+    .mv-icon {
+      width: 32px;
+      height: 32px;
+      color: #e63946;
+      transition: transform 0.4s ease;
+    }
+
+    .overview-card:hover .mv-icon {
+      transform: scale(1.1);
+    }
+
+    .mv-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 1rem;
+      font-family: 'Oswald', sans-serif;
+      letter-spacing: 0.5px;
+    }
+
+    .mv-text {
+      color: #d1d5db;
+      font-size: 1rem;
+      line-height: 1.75;
+      opacity: 0.95;
     }
 
     .overview-text {
       color: #e5e7eb;
-      line-height: 1.75;
-      margin-bottom: 0.75rem;
-      font-size: 1rem;
+      line-height: 1.8;
+      margin-bottom: 0.8rem;
+      font-size: 1.0625rem;
     }
 
-    .overview-side-cards {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
+    .overview-text:last-child {
+      margin-bottom: 0;
     }
 
-    .overview-side-card {
-      padding: 1.5rem;
-      border-radius: 1rem;
-      flex: 1;
-    }
-
-    .overview-side-title {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: white;
-      margin-bottom: 0.75rem;
-    }
-
-    .overview-side-text {
-      color: #d1d5db;
-      font-size: 0.875rem;
-      line-height: 1.75;
-    }
-
+    /* ========== TEAM SECTION ========== */
     .squad-section {
-      padding: 4rem 5%;
+      padding: 6rem 5%;
       background-color: var(--bg);
       position: relative;
     }
@@ -380,7 +469,7 @@
 
     .squad-header {
       text-align: left;
-      margin-bottom: 3rem;
+      margin-bottom: 4rem;
     }
 
     .squad-title {
@@ -449,105 +538,95 @@
       opacity: 1;
     }
 
-    .final-section {
-      height: 100vh;
-      min-height: 600px;
-      position: relative;
+    /* ========== HERO HEADING ========== */
+    .hkmi-heading {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: 2px;
+    }
+
+    .hkmi-white {
+      color: #f3f4f6;
+      font-size: clamp(2rem, 6vw, 5rem);
+      text-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+    }
+
+    .hkmi-highlight {
       display: flex;
       align-items: center;
-      justify-content: center;
-    }
-
-    .final-overlay {
-      position: absolute;
-      inset: 0;
-      background-color: rgba(0, 0, 0, 0.65);
-    }
-
-    .final-content {
+      gap: 1rem;
+      margin-top: 0.5rem;
       position: relative;
-      z-index: 10;
-      text-align: center;
-      padding: 0 5%;
     }
 
-    .final-title {
-      font-size: 3rem;
+    .hkmi-red {
+      color: #ef4444;
+      font-size: clamp(1.5rem, 4vw, 3rem);
       font-weight: 900;
-      letter-spacing: -0.05em;
+      text-shadow: 0 0 10px rgba(255, 0, 0, 0.6), 0 0 25px rgba(255, 0, 0, 0.4), 0 10px 30px rgba(0, 0, 0, 0.8);
     }
 
+    .hkmi-heading span {
+      display: inline-block;
+      animation: fadeSlideUp 1.2s ease-out forwards;
+    }
+
+    @keyframes fadeSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(60px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ========== RESPONSIVE ========== */
     @media (max-width: 480px) {
-      .hero-section {
-        min-height: 500px;
-      }
-
-      .hero-content-wrapper {
-        padding: 0 1rem;
-      }
-
-      .hero-title {
-        font-size: 1.125rem;
-        margin-bottom: 1.5rem;
-        letter-spacing: 2px;
-      }
-
-      .hero-subtitle {
-        font-size: 0.875rem;
-      }
-
-      .gradient-text {
-        letter-spacing: 2px;
-        font-size: 0.75rem;
-      }
-
-      .glow-title {
-        letter-spacing: 2px;
-        font-size: 0.75rem;
-      }
-
       .overview-section {
-        padding: 3rem 1rem;
+        padding: 4rem 1rem;
       }
 
-      .overview-title {
-        font-size: 1.75rem;
+      .accent-bar-vertical {
+        height: 60px;
+        width: 8px;
       }
 
-      .overview-main-card {
-        padding: 1.25rem;
+      .overview-card {
+        padding: 1.75rem;
+      }
+
+      .mv-icon-wrapper {
+        width: 52px;
+        height: 52px;
+      }
+
+      .mv-icon {
+        width: 26px;
+        height: 26px;
+      }
+
+      .mv-title {
+        font-size: 1.375rem;
+      }
+
+      .mv-text {
+        font-size: 0.9375rem;
       }
 
       .overview-text {
-        font-size: 0.875rem;
-      }
-
-      .overview-side-card {
-        padding: 1.25rem;
-      }
-
-      .overview-side-title {
-        font-size: 1.25rem;
-      }
-
-      .overview-side-text {
-        font-size: 0.8125rem;
+        font-size: 0.9375rem;
       }
 
       .squad-section {
-        padding: 3rem 1rem;
-      }
-
-      .squad-header {
-        margin-bottom: 2rem;
+        padding: 4rem 1rem;
       }
 
       .squad-title {
         font-size: 2rem;
-      }
-
-      .squad-grid {
-        gap: 1.5rem;
       }
 
       .team-info {
@@ -557,69 +636,41 @@
       .team-name {
         font-size: 1.5rem;
       }
-
-      .final-section {
-        min-height: 500px;
-      }
-
-      .final-title {
-        font-size: 2rem;
-      }
-
-      .section-pin {
-        min-height: 500px;
-      }
     }
 
     @media (min-width: 481px) and (max-width: 640px) {
-      .hero-title {
-        font-size: 1.5rem;
-      }
-
-      .hero-subtitle {
-        font-size: 1rem;
-      }
-
       .overview-section {
-        padding: 4rem 2rem;
-      }
-
-      .overview-title {
-        font-size: 2rem;
+        padding: 3.5rem 2rem;
       }
 
       .overview-text {
         font-size: 1rem;
       }
 
-      .overview-side-text {
-        font-size: 0.875rem;
+      .mv-text {
+        font-size: 0.9375rem;
       }
 
       .squad-section {
-        padding: 4rem 2rem;
+        padding: 5rem 2rem;
       }
 
       .squad-title {
-        font-size: 2.5rem;
-      }
-
-      .final-title {
         font-size: 2.5rem;
       }
     }
 
     @media (min-width: 640px) {
       .overview-section {
-        padding: 4rem 2rem;
+        padding: 5rem 2rem 6rem 2rem;
       }
 
-      .overview-text {
-        font-size: 1.125rem;
+      .overview-card-grid {
+        grid-template-columns: repeat(2, 1fr);
       }
 
-      .overview-side-text {
-        font-size: 1rem;
+      .overview-card-grid>div:last-child {
+        grid-column: span 2;
       }
     }
 
@@ -636,34 +687,8 @@
         font-size: 3.75rem;
       }
 
-      .overview-title {
-        font-size: 2.25rem;
-      }
-
-      .final-title {
-        font-size: 4.5rem;
-      }
-
       .squad-header {
         margin-bottom: 5rem;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .hero-title {
-        font-size: 1.5rem;
-      }
-
-      .overview-title {
-        font-size: 2rem;
-      }
-
-      .squad-title {
-        font-size: 2.5rem;
-      }
-
-      .final-title {
-        font-size: 2.5rem;
       }
     }
 
@@ -690,31 +715,26 @@
         margin-bottom: 2rem;
       }
 
-      .hero-title {
-        font-size: 3rem;
-      }
-
       .hero-subtitle {
         font-size: 1rem;
         max-width: 36rem;
       }
 
-      .overview-grid {
-        grid-template-columns: 2fr 1fr;
-        gap: 2rem;
-        margin-top: 3rem;
+      .overview-section {
+        padding: 6rem 5rem 7rem 5rem;
       }
 
-      .overview-main-card {
-        padding: 2.25rem;
+      .overview-card-grid {
+        grid-template-columns: repeat(2, 1fr);
+        margin-top: 2rem;
       }
 
-      .overview-side-cards {
-        gap: 1.75rem;
+      .overview-card-grid>div:last-child {
+        grid-column: span 2;
       }
 
-      .overview-title {
-        font-size: 3rem;
+      .overview-card {
+        padding: 2.5rem;
       }
 
       .squad-section {
@@ -730,10 +750,6 @@
         font-size: 4.5rem;
       }
 
-      .final-title {
-        font-size: 6rem;
-      }
-
       .section-pin {
         min-height: 800px;
       }
@@ -741,212 +757,209 @@
       .hero-section {
         min-height: 800px;
       }
+    }
 
-      .final-section {
-        min-height: 800px;
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      .mission-vision-card:hover,
+      .overview-main-card:hover {
+        transform: none;
+      }
+
+      .magnetic-card {
+        transition: none;
       }
     }
 
-    .hkmi-heading {
-      font-family: 'Oswald', sans-serif;
-      font-weight: 800;
-      line-height: 1.05;
-      letter-spacing: 2px;
-    }
+    @media (max-width: 768px) {
 
-    .hkmi-white {
-      color: #f3f4f6;
-      font-size: clamp(2rem, 6vw, 5rem);
-      text-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
-    }
-
-    .hkmi-highlight {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-top: 0.5rem;
-      position: relative;
-    }
-
-
-
-    .hkmi-red {
-      color: #ef4444;
-      font-size: clamp(1.5rem, 4vw, 3rem);
-      font-weight: 900;
-      text-shadow:
-        0 0 10px rgba(255, 0, 0, 0.6),
-        0 0 25px rgba(255, 0, 0, 0.4),
-        0 10px 30px rgba(0, 0, 0, 0.8);
-    }
-
-    .hero-heading-wrapper {
-      margin-bottom: 2.5rem;
-      /* controls gap */
-    }
-
-    .hero-subtitle {
-      margin-top: 1.5rem;
-      max-width: 720px;
-      line-height: 1.7;
-    }
-
-    .hkmi-heading span {
-      display: inline-block;
-      animation: fadeSlideUp 1.2s ease-out forwards;
-    }
-
-    .hkmi-heading span:nth-child(1) {
-      animation-delay: 0.2s;
-    }
-
-    .hkmi-heading span:nth-child(2) {
-      animation-delay: 0.2s;
-    }
-
-    .hkmi-heading span:nth-child(3) {
-      animation-delay: 0.2s;
-    }
-
-    @keyframes fadeSlideUp {
-      from {
-        opacity: 0;
-        transform: translateY(60px);
+      .overview-card,
+      .hero-glass-card {
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
       }
 
-      to {
-        opacity: 1;
-        transform: translateY(0);
+      .mission-vision-card:hover {
+        transform: translateY(-4px);
       }
+
+      .overview-main-card:hover {
+        transform: translateY(-2px);
+      }
+    }
+
+    @media (hover: none) and (pointer: coarse) {
+      .mission-vision-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 15px 30px rgba(230, 57, 70, 0.12);
+      }
+
+      .overview-main-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 20px 40px rgba(99, 102, 241, 0.1);
+      }
+
+      .magnetic-card {
+        transition: transform 0.3s ease;
+      }
+    }
+
+    /* Specific styling for the large overview card */
+    .overview-content-grid .mission-vision-card {
+      width: 100%;
+      min-height: auto;
+    }
+
+    .overview-content-grid .mv-text p {
+      margin-bottom: 0.8rem;
+      opacity: 0.9;
+    }
+
+    /* Ensures the big card animates along with the small ones */
+    .overview-content-grid .mission-vision-card {
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
   </style>
 </head>
 
 <body>
-  {% include 'base/nav.html' %}
 
   <!-- Hero Section -->
+  {% include 'base/nav.html' %}
   <section class="hero-section">
     <div class="hero-bg-overlay office-bg"></div>
     <div class="hero-bg-overlay"></div>
-
     <div class="hero-content-wrapper">
       <div class="heading-accent-wrapper">
-
-
-
         <div>
           <h1 class="hkmi-heading">
             <span class="hkmi-red">ABOUT</span><br>
             <span class="hkmi-white">HARIKRUSHNA MULTIMEDIA</span><br>
-
             <div class="hkmi-highlight">
-
               <span class="hkmi-white">INSTITUTE</span>
             </div>
           </h1>
         </div>
-
-
         <p class="hero-subtitle" id="hero-subtitle">
           <span class="typed-text"></span>
           <span class="cursor">|</span>
         </p>
       </div>
-
       <div class="hero-right-card">
         <div class="hero-glass-card hero-card-inner">
-
           <h3 class="hero-card-title gradient-text">
             Why HKMI?
           </h3>
-
           <div class="stats-container">
             <div class="stat-row">
-              <span class="stat-label">Students Trained</span>
-              <span class="stat-value counter" data-target="2500">0</span>
+              <span class="stat-label">Coallab With Universities</span>
+              <span class="stat-value counter" data-target="100">0</span>
             </div>
-
             <div class="stat-row">
               <span class="stat-label">Expert Mentors</span>
-              <span class="stat-value counter" data-target="35">0</span>
+              <span class="stat-value counter" data-target="5">0</span>
             </div>
-
             <div class="stat-row">
               <span class="stat-label">Placement Support</span>
               <span class="stat-value">100%</span>
             </div>
           </div>
-
           <div>
             <button class="cta-button">
               Explore Courses
             </button>
           </div>
-
         </div>
       </div>
-
     </div>
   </section>
 
-  <!-- Overview Section -->
   <section class="overview-section">
     <div class="overview-container">
+      <div class="heading-wrapper">
+        <div class="accent-bar-vertical"></div>
+        <h2 class="overview-title" id="values-title">OVERVIEW</h2>
+      </div>
 
-      <h2 class="overview-title gradient-text glow-title" id="values-title">
-        OVERVIEW ABOUT HKMI
-      </h2>
-
-      <div class="overview-grid">
-
-        <div class="overview-card overview-main-card">
-          <p class="overview-text">
-            Harikrushna Multimedia Institute is dedicated to shaping the next generation of creative professionals
-            through a modern approach to multimedia education.
-          </p>
-          <p class="overview-text">
-            Established with a vision to make students industry-ready, we offer skill-based career courses in Animation,
-            VFX, UI/UX Design, Digital Marketing, Video Editing, Graphic Design, and other creative and technical
-            fields.
-          </p>
-          <p class="overview-text">
-            Our training blends theoretical knowledge with hands-on practical experience, ensuring students gain
-            real-world skills while exploring their artistic potential. Guided by experienced instructors and supported
-            by live project exposure, our programs foster innovation, problem-solving, and professional growth.
-          </p>
-          <p class="overview-text">
-            With a focus on the latest technological trends and a user-friendly learning environment, Harikrushna
-            Multimedia empowers students to transform their imagination into career-ready expertise. Our transparent
-            placement support connects students with leading studios and companies, helping them confidently step into
-            the digital creative industry.
-          </p>
-          <p class="overview-text">
-            Become a part of this journey. Learn beyond your imagination and explore new dimensions of the digital
-            world.
+      <div class="overview-card-grid">
+        <div class="overview-card accent-top">
+          <div class="card-bg-image"></div>
+          <div class="card-overlay"></div>
+          <div class="mv-icon-wrapper">
+            <svg class="mv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+            </svg>
+          </div>
+          <h3 class="mv-title">Our Mission</h3>
+          <p class="mv-text">
+            To spread the latest industry knowledge to students and make them employable in their
+            selected job profession.
           </p>
         </div>
 
-        <div class="overview-side-cards">
-
-          <div class="overview-card overview-side-card">
-            <h3 class="overview-side-title">🎯Mission</h3>
-            <p class="overview-side-text">
-              To spread the latest industry knowledge to students and make them employable in their selected job
-              profession.
-            </p>
+        <div class="overview-card accent-top">
+          <div class="card-bg-image"></div>
+          <div class="card-overlay"></div>
+          <div class="mv-icon-wrapper">
+            <svg class="mv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M12 6v6l4 2" />
+            </svg>
           </div>
-
-          <div class="overview-card overview-side-card">
-            <h3 class="overview-side-title">🔭Vision</h3>
-            <p class="overview-side-text">
-              We are committed to producing high-quality manpower to fuel the ever-growing needs of the various
-              verticals of the Media & Entertainment industry.
-            </p>
-          </div>
-
+          <h3 class="mv-title">Our Vision</h3>
+          <p class="mv-text">
+            We are committed to producing high-quality manpower to fuel the ever-growing needs of
+            the various verticals of the Media & Entertainment industry.
+          </p>
         </div>
 
+        <div class="overview-card accent-bottom">
+          <div class="card-bg-image"></div>
+          <div class="card-overlay"></div>
+          <div class="mv-icon-wrapper">
+            <svg class="mv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+            </svg>
+          </div>
+          <h3 class="mv-title">Detailed Institute Overview</h3>
+          <div class="mv-text">
+            <p style="margin-bottom: 1rem;">
+              Harikrushna Multimedia Institute is dedicated to shaping the next generation of creative
+              professionals through a modern approach to multimedia education.
+            </p>
+            <p style="margin-bottom: 1rem;">
+              Established with a vision to make students industry-ready, we offer skill-based career
+              courses in Animation, VFX, UI/UX Design, Digital Marketing, Video Editing, Graphic Design,
+              and other creative and technical fields
+            </p>
+            <p style="margin-bottom: 1rem;">
+              Our training blends theoretical knowledge with hands-on practical experience, ensuring
+              students gain real-world skills while exploring their artistic potential. Guided by experienced
+              instructors and supported by live project exposure, our programs foster innovation, problem-solving, and
+              professional growth.
+            </p>
+            <p style="margin-bottom: 1rem;">
+              With a focus on the latest technological trends and a user-friendly learning environment, Harikrushna
+              Multimedia empowers students to transform their imagination into
+              career-ready expertise. Our transparent placement support connects students with
+              leading studios and companies, helping them confidently step into the digital creative
+              industry..
+            </p>
+            <p style="margin-bottom: 1rem;">
+              Become a part of this journey. Learn beyond your imagination and explore new dimensions of the digital
+              world.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -955,79 +968,49 @@
   <section class="squad-section">
     <div class="squad-container">
       <div class="squad-header">
-        <h2 class="squad-title gradient-text glow-title" id="squad-title">
-          Meet the Minds
-        </h2>
+        <div class="heading-wrapper">
+          <div class="accent-bar-vertical"></div>
+          <h2 class="squad-title gradient-text glow-title" id="squad-title">
+            Meet the Minds
+          </h2>
+        </div>
       </div>
-
       <div class="squad-grid">
-
         <div class="magnetic-card team-card">
-          <img src="{% static 'images/IMG_6029.PNG' %}" alt="Team member">
+          <img src="{% static 'images/IMG_6029.PNG' %}" alt="Bhushan Surte">
           <div class="team-overlay"></div>
+
           <div class="team-info">
             <h3 class="team-name">Bhushan Surte</h3>
             <p class="team-role">Director</p>
           </div>
         </div>
-
         <div class="magnetic-card team-card">
-          <img src="{% static 'images/IMG_6024.PNG' %}" alt="Team member">
+          <img src="{% static 'images/IMG_6024.PNG' %}" alt="Lalit Yadav">
           <div class="team-overlay"></div>
+
           <div class="team-info">
             <h3 class="team-name">Lalit Yadav</h3>
             <p class="team-role">Managing Director</p>
           </div>
         </div>
-
         <div class="magnetic-card team-card">
-          <img src="{% static 'images/IMG_6027.PNG' %}" alt="Team member">
+          <img src="{% static 'images/IMG_6027.PNG' %}" alt="Viky More">
           <div class="team-overlay"></div>
+
           <div class="team-info">
             <h3 class="team-name">Viky More</h3>
             <p class="team-role">Director</p>
           </div>
         </div>
-
       </div>
     </div>
   </section>
-
   {% include 'base/footer.html' %}
-
   <script>
+    gsap.registerPlugin(ScrollTrigger, TextPlugin);
 
-    gsap.from("#overview-title", {
-      opacity: 0,
-      y: 120,
-      scale: 0.9,
-      duration: 1.6,
-      ease: "power4.out",
-      scrollTrigger: {
-        trigger: "#overview-title",
-        start: "top 80%"
-      }
-    });
-
-    gsap.from(".overview-card", {
-      opacity: 0,
-      y: 140,
-      duration: 1.8,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: ".overview-card",
-        start: "top 85%"
-      }
-    });
-
-    gsap.to(".overview-card", {
-      scale: 1.015,
-      duration: 4,
-      repeat: -1,
-      yoyo: true,
-      ease: "sine.inOut"
-    });
-
+    // Hero animations
     gsap.to(".hero-glass-card", {
       y: -18,
       duration: 3,
@@ -1053,119 +1036,98 @@
       );
     });
 
-    gsap.registerPlugin(ScrollTrigger, TextPlugin);
-
-    gsap.from("#hero-title", {
-      opacity: 0,
-      y: 120,
-      duration: 1.8,
-      ease: "power4.out",
-      scrollTrigger: { trigger: "#hero-title", start: "top 85%" }
-    });
-
-    gsap.to("#hero-title", {
-      backgroundPosition: "300% center",
-      duration: 12,
-      ease: "none",
-      repeat: -1
-    });
-
     gsap.from("#hero-subtitle", {
       opacity: 0,
-      y: 60,
+      y: 150,
       duration: 1.6,
       delay: 0.6,
       ease: "power3.out"
     });
 
-    ["#squad-title", "#values-title", "#final-title"].forEach((id, i) => {
-      gsap.from(id, {
-        opacity: 0,
-        scale: 0.88,
-        y: 100,
-        duration: 1.6,
-        ease: "power4.out",
-        scrollTrigger: {
-          trigger: id,
-          start: "top 82%",
-        }
-      });
+    // Overview Section animations
+    gsap.from(".heading-wrapper", {
+      opacity: 0,
+      y: 40,
+      duration: 1,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: ".overview-section",
+        start: "top 70%",
+        once: true
+      }
     });
 
-    document.querySelectorAll('.magnetic-card').forEach(card => {
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = (e.clientX - rect.left - rect.width / 2) / 20;
-        const y = (e.clientY - rect.top - rect.height / 2) / 20;
-
-        gsap.to(card, {
-          x: x * 2.5,
-          y: y * 2.5,
-          rotationY: x * 12,
-          rotationX: -y * 12,
-          duration: 0.7,
-          ease: "power2.out"
-        });
-      });
-
-      card.addEventListener('mouseleave', () => {
-        gsap.to(card, {
-          x: 0,
-          y: 0,
-          rotationY: 0,
-          rotationX: 0,
-          duration: 1.1,
-          ease: "elastic.out(1, 0.5)"
-        });
-      });
+    gsap.from(".overview-card", {
+      opacity: 0,
+      y: 30,
+      duration: 1,
+      stagger: 0.15,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: ".overview-card-grid",
+        start: "top 85%",
+        once: true
+      }
     });
 
-    gsap.utils.toArray(".value-card").forEach(card => {
-      gsap.to(card, {
-        scale: 1.015,
-        duration: 4,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut"
-      });
+    gsap.from(".mv-icon-wrapper", {
+      scale: 0.8,
+      opacity: 0,
+      duration: 0.8,
+      stagger: 0.2,
+      ease: "back.out(1.7)",
+      scrollTrigger: {
+        trigger: ".overview-card-grid",
+        start: "top 75%",
+        once: true
+      }
     });
 
+    // Squad section
+    gsap.from("#squad-title", {
+      opacity: 0,
+      scale: 0.88,
+      y: 100,
+      duration: 1.6,
+      ease: "power4.out",
+      scrollTrigger: {
+        trigger: "#squad-title",
+        start: "top 82%",
+        once: true
+      }
+    });
+
+    // Stable cards with no 3D tilt
+    document.querySelectorAll('.overview-card').forEach(card => {
+      // Hover reveal is now handled via CSS only for performance
+    });
+
+    // Typing / scramble effect
     document.addEventListener('DOMContentLoaded', () => {
       const textElement = document.querySelector('.typed-text');
       const fullText = `Harikrushna Multimedia Institute offers industry-focused multimedia education for creative careers. We provide skill-based courses in Animation, VFX, UI/UX, Digital Marketing, and Design fields. Our practical training and expert guidance prepare students for real-world industry demands. With placement support, we help students confidently enter the digital creative industry.`;
-
-      const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+";
+      const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
       let interval = null;
-      let delayBeforeStart = 800; // ms
+      let delayBeforeStart = 500;
 
       function startScramble() {
         let iteration = 0;
-
         clearInterval(interval);
-
         interval = setInterval(() => {
           textElement.innerText = fullText
             .split("")
             .map((letter, index) => {
-              if (index < iteration) {
-                return fullText[index];
-              }
-              // Scramble a "leading edge" of characters (next 10 chars)
-              if (index < iteration + 10) {
-                return letters[Math.floor(Math.random() * letters.length)];
-              }
+              if (index < iteration) return fullText[index];
+              if (index < iteration + 10) return letters[Math.floor(Math.random() * letters.length)];
               return "";
             })
             .join("");
-
           if (iteration >= fullText.length) {
             clearInterval(interval);
-            textElement.innerText = fullText; // Ensure final text is clean
+            textElement.innerText = fullText;
           }
-
-          // Speed of reveal (higher += faster)
-          iteration += 2;
-        }, 30);
+          iteration += 3;
+        }, 40);
       }
 
       setTimeout(() => {
@@ -1173,29 +1135,7 @@
         startScramble();
       }, delayBeforeStart);
     });
-
-    gsap.timeline({
-      scrollTrigger: {
-        trigger: ".overview-grid",
-        start: "top 78%",
-      }
-    })
-      .from(".overview-main-card", {
-        opacity: 0,
-        y: 100,
-        duration: 1.4,
-        ease: "power4.out"
-      }, 0)
-      .from(".overview-side-card", {
-        opacity: 0,
-        y: 80,
-        duration: 1.3,
-        ease: "power4.out",
-        stagger: 0.16
-      }, 0.25);
-
   </script>
-
 </body>
 
 </html>
