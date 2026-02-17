@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'hkm',
     'apps.courses',
     'apps.events',
-
+    'apps.contactus',
 ]
 
 MIDDLEWARE = [
@@ -147,4 +147,18 @@ MEDIA_ROOT = BASE_DIR.parent / 'media'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Email Configuration for Gmail
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'patelriteshd717@gmail.com'
+# IMPORTANT: Use an "App Password" here if 2FA is enabled. DO NOT use your regular Gmail password.
+EMAIL_HOST_PASSWORD = 'vpkh wtfq upad swpm' 
+DEFAULT_FROM_EMAIL = 'patelriteshd717@gmail.com'
+
+# Admin Email for notifications
+ADMIN_EMAIL = 'patelriteshd717@gmail.com'
 
