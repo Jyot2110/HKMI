@@ -628,7 +628,22 @@
         </div>
       </div>
 
-      <div class="squad-grid">
+      <div class="squad-grid" id="faculty-list">
+        {% for faculty in faculties %}
+        <div class="team-card flip-reveal">
+          {% if faculty.image %}
+          <img src="{{ faculty.image.url }}" alt="{{ faculty.name }}" loading="lazy">
+          {% else %}
+          <img src="{% static 'images/placeholder-faculty.webp' %}" alt="{{ faculty.name }}" loading="lazy">
+          {% endif %}
+          <div class="team-overlay"></div>
+          <div class="team-info">
+            <h3 class="team-name">{{ faculty.name }}</h3>
+            <p class="team-role">{{ faculty.role }}</p>
+          </div>
+        </div>
+        {% empty %}
+        <!-- Fallback if no faculty in database -->
         <div class="team-card flip-reveal">
           <img src="{% static 'images/IMG_6029_qwxxa3.webp' %}" alt="Bhushan Surte" loading="lazy">
           <div class="team-overlay"></div>
@@ -653,6 +668,7 @@
             <p class="team-role">Director</p>
           </div>
         </div>
+        {% endfor %}
       </div>
     </div>
   </section>

@@ -4,8 +4,11 @@ from django.core.mail import send_mail
 from django.conf import settings
 from apps.contactus.models import ContactMessage
 
+from apps.aboutus.models import Faculty, Portfolio
+
 def home(request):
-    return render(request, 'pages/index.html')
+    portfolios = Portfolio.objects.all()
+    return render(request, 'pages/index.html', {'portfolios': portfolios})
 
 def contacts(request):
     if request.method == 'POST':
@@ -58,6 +61,9 @@ def contacts(request):
 
     return render(request, 'pages/contact_us.html')
 
+from apps.aboutus.models import Faculty
+
 def aboutus(request):
-    return render(request, 'pages/aboutus.html')
+    faculties = Faculty.objects.all()
+    return render(request, 'pages/aboutus.html', {'faculties': faculties})
 

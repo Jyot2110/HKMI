@@ -271,6 +271,28 @@
             </div>
 
             <div class="portfolio-container">
+                {% for portfolio in portfolios %}
+                <div class="card">
+                    <div class="slide slide1">
+                        <div class="icon">
+                            {% if portfolio.image %}
+                            <img src="{{ portfolio.image.url }}" alt="{{ portfolio.name }}" loading="lazy">
+                            {% else %}
+                            <img src="{% static 'images/placeholder-portfolio.webp' %}" alt="{{ portfolio.name }}"
+                                loading="lazy">
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="slide slide2">
+                        <div class="content">
+                            <h3>{{ portfolio.name }}</h3>
+                            <p>{{ portfolio.role }}<br><strong>{{ portfolio.tools }}</strong></p>
+                            <a href="{{ portfolio.portfolio_link }}" class="visit-link">VISIT PORTFOLIO</a>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <!-- Fallback if no portfolio in database -->
                 <div class="card">
                     <div class="slide slide1">
                         <div class="icon">
@@ -321,6 +343,7 @@
                         </div>
                     </div>
                 </div>
+                {% endfor %}
             </div>
         </div>
     </section>
