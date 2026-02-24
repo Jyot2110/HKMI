@@ -1,37 +1,25 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About HKMI – Where Creativity Meets Mastery</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/TextPlugin.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="{% static 'css/style.css' %}?v=20260208">
-  <style>
-    /* Navbar Visibility Override */
-    .navbar {
-      opacity: 1 !important;
-      visibility: visible !important;
-      transform: translateY(0) !important;
-      background: rgba(29, 53, 87, 0.8) !important;
-    }
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}?v=20260209">
 
+  <style>
+    /* === PAGE BASE === */
     :root {
       --bg: #060606;
       --card: #171725;
       --accent: #6366f1;
-      --accent-dark: #4f46e5;
-      --text-color: white;
-      --text-muted: #94a3b8;
       --primary-red: #e63946;
     }
 
@@ -43,98 +31,97 @@
 
     body {
       background: var(--bg);
-      color: var(--text-color);
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      font-weight: 400;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
       overflow-x: hidden;
       line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
     }
 
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6,
-    .font-oswald,
-    .gradient-text,
-    .glow-title,
-    .section-title,
-    #hero-title,
-    #squad-title,
-    #values-title,
-    #final-title {
-      font-family: 'Oswald', sans-serif;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      line-height: 1.1;
+    /* Always show navbar on this page */
+    .navbar {
+      opacity: 1 !important;
+      visibility: visible !important;
+      transform: translateY(0) !important;
     }
 
-    button,
-    .font-bold,
-    strong {
-      font-family: 'Oswald', sans-serif;
-      font-weight: 600;
-    }
-
-    .section-pin {
+    /* === HERO SECTION === */
+    .hero-section {
       height: 100vh;
-      min-height: 800px;
-      display: grid;
-      place-items: center;
+      min-height: 640px;
       position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
     }
 
-    .magnetic-card {
-      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-      transform-style: preserve-3d;
-    }
-
-    .hero-bg-overlay {
+    .hero-bg {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.8));
+      background: url("{% static 'images/hero-bg_pkg4qv.webp' %}") center/cover no-repeat fixed;
+      z-index: 0;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.75));
       z-index: 1;
     }
 
-    .gradient-text {
-      color: #e63946;
-      font-weight: 600;
-      letter-spacing: 4px;
-      display: block;
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      font-family: 'Oswald', sans-serif;
-    }
-
-    .glow-title {
-      color: #e63946;
-      font-weight: 600;
-      letter-spacing: 4px;
-      display: block;
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      font-family: 'Oswald', sans-serif;
+    .hero-content-wrapper {
       position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 5%;
+      display: grid;
+      grid-template-columns: 1fr;
+      align-items: center;
+      gap: 3rem;
     }
 
-    .glow-title::after {
-      content: '';
-      position: absolute;
-      inset: -20%;
-      background: radial-gradient(circle at 30% 40%, rgba(99, 102, 241, 0.25) 0%, transparent 60%);
-      opacity: 0.5;
-      filter: blur(40px);
-      pointer-events: none;
-      z-index: -1;
+    /* Show stats card on large screens */
+    @media (min-width: 1024px) {
+      .hero-content-wrapper {
+        grid-template-columns: 1.2fr 0.8fr;
+      }
+
+      .hero-right-card {
+        display: flex !important;
+        justify-content: center;
+      }
     }
 
-    .office-bg {
-      background: url("{% static 'images/hero-bg.png' %}") center/cover no-repeat fixed;
-      background-attachment: fixed;
+    /* === HERO HEADING === */
+    .hkmi-heading {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: 2px;
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      margin-bottom: 1.5rem;
     }
 
+    .hkmi-red {
+      color: #ef4444;
+      display: inline;
+      text-shadow: 0 0 10px rgba(255, 0, 0, 0.5), 0 0 25px rgba(255, 0, 0, 0.3);
+    }
+
+    .hkmi-white {
+      color: #f3f4f6;
+      display: inline;
+    }
+
+    /* === HERO SUBTITLE SCRAMBLE === */
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: #d1d5db;
+      max-width: 600px;
+      line-height: 1.7;
+      margin-top: 1rem;
+    }
 
     .typed-text {
       opacity: 0;
@@ -145,7 +132,7 @@
     .cursor {
       display: inline-block;
       color: #a5b4fc;
-      animation: blink 0.8s infinite, shake 3s infinite;
+      animation: blink 0.8s infinite;
       font-weight: bold;
     }
 
@@ -161,27 +148,9 @@
       }
     }
 
-    @keyframes shake {
-
-      0%,
-      100% {
-        transform: translateX(0);
-      }
-
-      10%,
-      30%,
-      50%,
-      70%,
-      90% {
-        transform: translateX(-2px);
-      }
-
-      20%,
-      40%,
-      60%,
-      80% {
-        transform: translateX(2px);
-      }
+    /* === HERO RIGHT CARD === */
+    .hero-right-card {
+      display: none;
     }
 
     .hero-glass-card {
@@ -189,106 +158,83 @@
       backdrop-filter: blur(12px);
       border: 1px solid rgba(99, 102, 241, 0.25);
       box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
-    }
-
-    .hero-section {
-      height: 100vh;
-      min-height: 600px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-content-wrapper {
-      position: relative;
-      z-index: 10;
-      height: 100%;
-      display: grid;
-      grid-template-columns: 1fr;
-      align-items: center;
-      padding: 0 5%;
-    }
-
-    .hero-subtitle {
-      font-size: 1.125rem;
+      padding: 2.5rem;
+      border-radius: 1.5rem;
+      width: 420px;
       max-width: 100%;
-      color: #d1d5db;
-      margin-top: 1.5rem;
-      line-height: 1.7;
     }
 
-    .hero-right-card {
-      display: none;
+    .hero-card-title {
+      color: var(--primary-red);
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      letter-spacing: 2px;
     }
 
     .stats-container {
       display: flex;
       flex-direction: column;
-      gap: 1.5rem;
+      gap: 1.25rem;
     }
 
     .stat-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 1rem;
+    }
+
+    .stat-row:last-child {
+      border-bottom: none;
     }
 
     .stat-label {
       color: #d1d5db;
+      font-size: 0.95rem;
     }
 
     .stat-value {
       font-size: 1.875rem;
       font-weight: 900;
       color: #818cf8;
+      font-family: 'Oswald', sans-serif;
     }
 
     .cta-button {
+      display: block;
       width: 100%;
       padding: 1rem;
       border-radius: 0.75rem;
-      background-color: #4f46e5;
+      background: #4f46e5;
       font-weight: 600;
-      letter-spacing: 0.025em;
-      transition: background-color 0.3s;
+      letter-spacing: 0.05em;
+      transition: background 0.3s;
       border: none;
       color: white;
       cursor: pointer;
-      margin-top: 2.5rem;
+      margin-top: 1.5rem;
+      text-align: center;
+      text-decoration: none;
+      font-family: 'Oswald', sans-serif;
+      text-transform: uppercase;
     }
 
     .cta-button:hover {
-      background-color: #4338ca;
+      background: #4338ca;
     }
 
-    /* ========== OVERVIEW SECTION ========== */
+    /* === OVERVIEW SECTION === */
     .overview-section {
       background: linear-gradient(to bottom, #030712, #000000, #030712);
-      padding: 4rem 5% 6rem 5%;
+      padding: clamp(4rem, 8vw, 7rem) 5%;
     }
 
     .overview-container {
       max-width: 80rem;
       margin: 0 auto;
-    }
-
-    .overview-title {
-      font-size: clamp(2rem, 5vw, 4rem);
-      font-weight: 900;
-      color: white;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      line-height: 1;
-      opacity: 1;
-    }
-
-    .accent-bar-vertical {
-      width: 12px;
-      height: 80px;
-      background: linear-gradient(to bottom, #e63946, #b22d35);
-      border-radius: 4px;
-      box-shadow: 0 0 25px rgba(230, 57, 70, 0.5);
-      flex-shrink: 0;
-      opacity: 1;
     }
 
     .heading-wrapper {
@@ -298,6 +244,26 @@
       margin-bottom: 2.5rem;
     }
 
+    .accent-bar-vertical {
+      width: 12px;
+      height: 80px;
+      background: linear-gradient(to bottom, #e63946, #b22d35);
+      border-radius: 4px;
+      box-shadow: 0 0 25px rgba(230, 57, 70, 0.5);
+      flex-shrink: 0;
+    }
+
+    .overview-title,
+    .squad-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: clamp(2rem, 5vw, 4rem);
+      font-weight: 900;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      line-height: 1;
+    }
+
     .overview-card-grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -305,23 +271,28 @@
       margin-top: 2rem;
     }
 
+    @media (min-width: 640px) {
+      .overview-card-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .overview-card-grid>.span-2 {
+        grid-column: span 2;
+      }
+    }
+
     .overview-card {
       position: relative;
       background: #0f0f1a;
       border-radius: 12px;
-      padding: 3rem 2.5rem;
+      padding: clamp(1.75rem, 3vw, 3rem);
       border: 1px solid rgba(255, 255, 255, 0.05);
       display: flex;
       flex-direction: column;
-      height: 100%;
-      opacity: 1 !important;
-      visibility: visible !important;
       transition: all 0.4s ease;
       overflow: hidden;
-      z-index: 1;
     }
 
-    /* Red Accent Bars - Animated Moving Effect */
     .overview-card::before {
       content: '';
       position: absolute;
@@ -334,7 +305,6 @@
       z-index: 5;
     }
 
-    /* Small cards get top bar, Big card gets bottom bar (matching image style) */
     .overview-card.accent-top::before {
       top: 0;
     }
@@ -364,7 +334,6 @@
       box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
     }
 
-    /* Background Image Placeholder & Overlay */
     .card-bg-image {
       position: absolute;
       inset: 0;
@@ -373,7 +342,7 @@
       opacity: 0.15;
       filter: grayscale(100%);
       transition: opacity 0.6s ease, transform 0.6s ease;
-      z-index: -1;
+      z-index: 0;
     }
 
     .overview-card:hover .card-bg-image {
@@ -386,35 +355,13 @@
       position: absolute;
       inset: 0;
       background: linear-gradient(to top, rgba(15, 15, 26, 0.95), rgba(15, 15, 26, 0.6));
-      z-index: 0;
+      z-index: 1;
     }
 
     .mv-icon-wrapper {
       position: relative;
       z-index: 2;
-      /* Rest of styling... */
-      margin-bottom: 2rem;
-    }
-
-    .mv-title {
-      position: relative;
-      z-index: 2;
-      font-size: 2.25rem;
-      font-weight: 900;
-      color: white;
-      margin-bottom: 1.25rem;
-      font-family: 'Oswald', sans-serif;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      line-height: 1.1;
-    }
-
-    .mv-text {
-      position: relative;
-      z-index: 2;
-      color: rgba(255, 255, 255, 0.8);
-      font-size: 1.125rem;
-      line-height: 1.6;
+      margin-bottom: 1.5rem;
     }
 
     .mv-icon {
@@ -425,41 +372,40 @@
     }
 
     .overview-card:hover .mv-icon {
-      transform: scale(1.1);
+      transform: scale(1.15);
     }
 
     .mv-title {
+      position: relative;
+      z-index: 2;
+      font-family: 'Oswald', sans-serif;
       font-size: 1.75rem;
       font-weight: 700;
       color: white;
       margin-bottom: 1rem;
-      font-family: 'Oswald', sans-serif;
       letter-spacing: 0.5px;
     }
 
     .mv-text {
+      position: relative;
+      z-index: 2;
       color: #d1d5db;
       font-size: 1rem;
       line-height: 1.75;
-      opacity: 0.95;
     }
 
-    .overview-text {
-      color: #e5e7eb;
-      line-height: 1.8;
-      margin-bottom: 0.8rem;
-      font-size: 1.0625rem;
+    .mv-text p {
+      margin-bottom: 1rem;
     }
 
-    .overview-text:last-child {
+    .mv-text p:last-child {
       margin-bottom: 0;
     }
 
-    /* ========== TEAM SECTION ========== */
+    /* === SQUAD SECTION === */
     .squad-section {
-      padding: 6rem 5%;
+      padding: clamp(4rem, 8vw, 8rem) 5%;
       background-color: var(--bg);
-      position: relative;
     }
 
     .squad-container {
@@ -468,19 +414,26 @@
     }
 
     .squad-header {
-      text-align: left;
-      margin-bottom: 4rem;
-    }
-
-    .squad-title {
-      font-size: 3rem;
-      font-weight: 900;
+      margin-bottom: 3.5rem;
     }
 
     .squad-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 2.5rem;
+      gap: 2rem;
+    }
+
+    @media (min-width: 640px) {
+      .squad-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .squad-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 3rem;
+      }
     }
 
     .team-card {
@@ -489,23 +442,24 @@
       border-radius: 1.5rem;
       aspect-ratio: 4/5;
       background-color: var(--card);
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .team-card img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 1s;
+      transition: transform 1s ease;
     }
 
     .team-card:hover img {
-      transform: scale(1.1);
+      transform: scale(1.08);
     }
 
     .team-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.35), transparent);
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.2), transparent);
     }
 
     .team-info {
@@ -517,10 +471,10 @@
     }
 
     .team-name {
-      font-size: 1.875rem;
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.75rem;
       font-weight: 700;
-      transform: translateY(0);
-      transition: transform 0.7s;
+      transition: transform 0.5s ease;
     }
 
     .team-card:hover .team-name {
@@ -530,367 +484,83 @@
     .team-role {
       color: var(--accent);
       margin-top: 0.25rem;
-      opacity: 0.9;
-      transition: opacity 0.3s;
+      font-size: 0.95rem;
     }
 
-    .team-card:hover .team-role {
-      opacity: 1;
-    }
-
-    /* ========== HERO HEADING ========== */
-    .hkmi-heading {
-      font-family: 'Oswald', sans-serif;
-      font-weight: 800;
-      line-height: 1.05;
-      letter-spacing: 2px;
-    }
-
-    .hkmi-white {
-      color: #f3f4f6;
-      font-size: clamp(2rem, 6vw, 5rem);
-      text-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
-    }
-
-    .hkmi-highlight {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-top: 0.5rem;
-      position: relative;
-    }
-
-    .hkmi-red {
-      color: #ef4444;
-      font-size: clamp(1.5rem, 4vw, 3rem);
-      font-weight: 900;
-      text-shadow: 0 0 10px rgba(255, 0, 0, 0.6), 0 0 25px rgba(255, 0, 0, 0.4), 0 10px 30px rgba(0, 0, 0, 0.8);
-    }
-
-    .hkmi-heading span {
-      display: inline-block;
-      animation: fadeSlideUp 1.2s ease-out forwards;
-    }
-
-    @keyframes fadeSlideUp {
-      from {
-        opacity: 0;
-        transform: translateY(60px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* ========== RESPONSIVE ========== */
-    @media (max-width: 480px) {
-      .overview-section {
-        padding: 4rem 1rem;
-      }
-
-      .accent-bar-vertical {
-        height: 60px;
-        width: 8px;
-      }
-
-      .overview-card {
-        padding: 1.75rem;
-      }
-
-      .mv-icon-wrapper {
-        width: 52px;
-        height: 52px;
-      }
-
-      .mv-icon {
-        width: 26px;
-        height: 26px;
-      }
-
-      .mv-title {
-        font-size: 1.375rem;
-      }
-
-      .mv-text {
-        font-size: 0.9375rem;
-      }
-
-      .overview-text {
-        font-size: 0.9375rem;
-      }
-
-      .squad-section {
-        padding: 4rem 1rem;
-      }
-
-      .squad-title {
-        font-size: 2rem;
-      }
-
-      .team-info {
-        padding: 1.5rem;
-      }
-
-      .team-name {
-        font-size: 1.5rem;
-      }
-    }
-
-    @media (min-width: 481px) and (max-width: 640px) {
-      .overview-section {
-        padding: 3.5rem 2rem;
-      }
-
-      .overview-text {
-        font-size: 1rem;
-      }
-
-      .mv-text {
-        font-size: 0.9375rem;
-      }
-
-      .squad-section {
-        padding: 5rem 2rem;
-      }
-
-      .squad-title {
-        font-size: 2.5rem;
-      }
-    }
-
-    @media (min-width: 640px) {
-      .overview-section {
-        padding: 5rem 2rem 6rem 2rem;
-      }
-
-      .overview-card-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .overview-card-grid>div:last-child {
-        grid-column: span 2;
-      }
-    }
-
-    @media (min-width: 768px) {
-      .squad-section {
-        padding: 8rem 3rem;
-      }
-
-      .squad-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .squad-title {
-        font-size: 3.75rem;
-      }
-
-      .squad-header {
-        margin-bottom: 5rem;
-      }
-    }
-
-    @media (min-width: 1024px) {
-      .hero-content-wrapper {
-        grid-template-columns: 1fr 1fr;
-        padding: 0 5rem;
-      }
-
-      .hero-right-card {
-        display: flex;
-        justify-content: center;
-      }
-
-      .hero-card-inner {
-        padding: 2.5rem;
-        border-radius: 1.5rem;
-        width: 420px;
-      }
-
-      .hero-card-title {
-        font-size: 1.875rem;
-        font-weight: 700;
-        margin-bottom: 2rem;
-      }
-
-      .hero-subtitle {
-        font-size: 1rem;
-        max-width: 36rem;
-      }
-
-      .overview-section {
-        padding: 6rem 5rem 7rem 5rem;
-      }
-
-      .overview-card-grid {
-        grid-template-columns: repeat(2, 1fr);
-        margin-top: 2rem;
-      }
-
-      .overview-card-grid>div:last-child {
-        grid-column: span 2;
-      }
-
-      .overview-card {
-        padding: 2.5rem;
-      }
-
-      .squad-section {
-        padding: 8rem 6rem;
-      }
-
-      .squad-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 4rem;
-      }
-
-      .squad-title {
-        font-size: 4.5rem;
-      }
-
-      .section-pin {
-        min-height: 800px;
-      }
-
-      .hero-section {
-        min-height: 800px;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-
-      *,
-      *::before,
-      *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-      }
-
-      .mission-vision-card:hover,
-      .overview-main-card:hover {
-        transform: none;
-      }
-
-      .magnetic-card {
-        transition: none;
-      }
-    }
-
+    /* === RESPONSIVE TWEAKS === */
     @media (max-width: 768px) {
-
-      .overview-card,
-      .hero-glass-card {
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
+      .hkmi-heading {
+        font-size: clamp(2rem, 8vw, 3rem);
       }
 
-      .mission-vision-card:hover {
-        transform: translateY(-4px);
+      .squad-title,
+      .overview-title {
+        font-size: clamp(1.75rem, 6vw, 2.5rem);
       }
-
-      .overview-main-card:hover {
-        transform: translateY(-2px);
-      }
-    }
-
-    @media (hover: none) and (pointer: coarse) {
-      .mission-vision-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 15px 30px rgba(230, 57, 70, 0.12);
-      }
-
-      .overview-main-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 20px 40px rgba(99, 102, 241, 0.1);
-      }
-
-      .magnetic-card {
-        transition: transform 0.3s ease;
-      }
-    }
-
-    /* Specific styling for the large overview card */
-    .overview-content-grid .mission-vision-card {
-      width: 100%;
-      min-height: auto;
-    }
-
-    .overview-content-grid .mv-text p {
-      margin-bottom: 0.8rem;
-      opacity: 0.9;
-    }
-
-    /* Ensures the big card animates along with the small ones */
-    .overview-content-grid .mission-vision-card {
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
   </style>
 </head>
 
 <body>
+  {% include 'base/nav.html' %}
 
   <!-- Hero Section -->
-  {% include 'base/nav.html' %}
   <section class="hero-section">
-    <div class="hero-bg-overlay office-bg"></div>
-    <div class="hero-bg-overlay"></div>
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+
     <div class="hero-content-wrapper">
-      <div class="heading-accent-wrapper">
-        <div>
-          <h1 class="hkmi-heading">
-            <span class="hkmi-red">ABOUT</span><br>
-            <span class="hkmi-white">HARIKRUSHNA MULTIMEDIA</span><br>
-            <div class="hkmi-highlight">
-              <span class="hkmi-white">INSTITUTE</span>
-            </div>
-          </h1>
-        </div>
-        <p class="hero-subtitle" id="hero-subtitle">
-          <span class="typed-text"></span>
-          <span class="cursor">|</span>
-        </p>
+      <!-- Left: Heading + Subtitle -->
+      <div>
+        <h1 class="hkmi-heading">
+          <span class="hkmi-red">ABOUT</span><br>
+          <span class="hkmi-white">HARIKRUSHNA</span><br>
+          <span class="hkmi-white">MULTIMEDIA</span><br>
+          <span class="hkmi-red">INSTITUTE</span>
+        </h1>
+        <!-- ============================================================
+             👇 SUBTITLE TEXT IS HERE — edit the text directly below
+             ============================================================ -->
+        <p class="hero-subtitle" id="hero-subtitle">Harikrushna Multimedia Institute offers industry-focused multimedia
+          education for creative careers. We provide skill-based courses in Animation, VFX, UI/UX, Digital Marketing,
+          and Design. Our practical training and expert guidance prepare students for real-world demands.</p>
       </div>
+
+      <!-- Right: Stats Card (desktop only) -->
       <div class="hero-right-card">
-        <div class="hero-glass-card hero-card-inner">
-          <h3 class="hero-card-title gradient-text">
-            Why HKMI?
-          </h3>
+        <div class="hero-glass-card">
+          <h3 class="hero-card-title">Why HKMI?</h3>
           <div class="stats-container">
             <div class="stat-row">
-              <span class="stat-label">Coallab With Universities</span>
-              <span class="stat-value counter" data-target="100">0</span>
+              <span class="stat-label">Students Trained</span>
+              <span class="stat-value counter" data-target="2500">0</span>
             </div>
             <div class="stat-row">
               <span class="stat-label">Expert Mentors</span>
-              <span class="stat-value counter" data-target="5">0</span>
+              <span class="stat-value counter" data-target="35">0</span>
             </div>
             <div class="stat-row">
               <span class="stat-label">Placement Support</span>
               <span class="stat-value">100%</span>
             </div>
           </div>
-          <div>
-            <button class="cta-button">
-              Explore Courses
-            </button>
-          </div>
+          <a href="{% url 'courses' %}" class="cta-button">Explore Courses</a>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- Overview Section -->
   <section class="overview-section">
     <div class="overview-container">
-      <div class="heading-wrapper">
+      <div class="heading-wrapper flip-reveal">
         <div class="accent-bar-vertical"></div>
         <h2 class="overview-title" id="values-title">OVERVIEW</h2>
       </div>
 
       <div class="overview-card-grid">
-        <div class="overview-card accent-top">
+        <!-- Mission Card -->
+        <div class="overview-card accent-top flip-reveal">
           <div class="card-bg-image"></div>
           <div class="card-overlay"></div>
           <div class="mv-icon-wrapper">
@@ -900,12 +570,13 @@
           </div>
           <h3 class="mv-title">Our Mission</h3>
           <p class="mv-text">
-            To spread the latest industry knowledge to students and make them employable in their
-            selected job profession.
+            To spread industry knowledge and make students employable through cutting-edge curriculum and hands-on
+            training.
           </p>
         </div>
 
-        <div class="overview-card accent-top">
+        <!-- Vision Card -->
+        <div class="overview-card accent-top flip-reveal">
           <div class="card-bg-image"></div>
           <div class="card-overlay"></div>
           <div class="mv-icon-wrapper">
@@ -916,12 +587,13 @@
           </div>
           <h3 class="mv-title">Our Vision</h3>
           <p class="mv-text">
-            We are committed to producing high-quality manpower to fuel the ever-growing needs of
-            the various verticals of the Media & Entertainment industry.
+            To produce high-quality creative professionals who fuel industry needs and shape the future of digital
+            innovation.
           </p>
         </div>
 
-        <div class="overview-card accent-bottom">
+        <!-- Overview Full-Width Card -->
+        <div class="overview-card accent-bottom span-2 flip-reveal">
           <div class="card-bg-image"></div>
           <div class="card-overlay"></div>
           <div class="mv-icon-wrapper">
@@ -932,32 +604,13 @@
           </div>
           <h3 class="mv-title">Detailed Institute Overview</h3>
           <div class="mv-text">
-            <p style="margin-bottom: 1rem;">
-              Harikrushna Multimedia Institute is dedicated to shaping the next generation of creative
-              professionals through a modern approach to multimedia education.
-            </p>
-            <p style="margin-bottom: 1rem;">
-              Established with a vision to make students industry-ready, we offer skill-based career
-              courses in Animation, VFX, UI/UX Design, Digital Marketing, Video Editing, Graphic Design,
-              and other creative and technical fields
-            </p>
-            <p style="margin-bottom: 1rem;">
-              Our training blends theoretical knowledge with hands-on practical experience, ensuring
-              students gain real-world skills while exploring their artistic potential. Guided by experienced
-              instructors and supported by live project exposure, our programs foster innovation, problem-solving, and
-              professional growth.
-            </p>
-            <p style="margin-bottom: 1rem;">
-              With a focus on the latest technological trends and a user-friendly learning environment, Harikrushna
-              Multimedia empowers students to transform their imagination into
-              career-ready expertise. Our transparent placement support connects students with
-              leading studios and companies, helping them confidently step into the digital creative
-              industry..
-            </p>
-            <p style="margin-bottom: 1rem;">
-              Become a part of this journey. Learn beyond your imagination and explore new dimensions of the digital
-              world.
-            </p>
+            <p>Harikrushna Multimedia Institute is dedicated to shaping the next generation of creative professionals
+              through a modern approach to multimedia education. Established with a vision to make students
+              industry-ready, we offer skill-based career courses in Animation, VFX, UI/UX Design, Digital Marketing,
+              Video Editing, Graphic Design, and other creative fields.</p>
+            <p>Our training blends theoretical knowledge with hands-on practical experience, ensuring students gain
+              real-world skills while exploring their artistic potential. Guided by experienced instructors and
+              supported by live project exposure, our programs foster innovation and professional growth.</p>
           </div>
         </div>
       </div>
@@ -968,172 +621,107 @@
   <section class="squad-section">
     <div class="squad-container">
       <div class="squad-header">
-        <div class="heading-wrapper">
+        <div class="heading-wrapper flip-reveal">
           <div class="accent-bar-vertical"></div>
-          <h2 class="squad-title gradient-text glow-title" id="squad-title">
-            Meet the Minds
-          </h2>
+          <h2 class="squad-title" id="squad-title">Meet the Minds</h2>
         </div>
       </div>
-      <div class="squad-grid">
-        <div class="magnetic-card team-card">
-          <img src="{% static 'images/IMG_6029.PNG' %}" alt="Bhushan Surte">
-          <div class="team-overlay"></div>
 
+      <div class="squad-grid" id="faculty-list">
+        {% for faculty in faculties %}
+        <div class="team-card flip-reveal">
+          {% if faculty.image %}
+          <img src="{{ faculty.image.url }}" alt="{{ faculty.name }}" loading="lazy">
+          {% else %}
+          <img src="{% static 'images/placeholder-faculty.webp' %}" alt="{{ faculty.name }}" loading="lazy">
+          {% endif %}
+          <div class="team-overlay"></div>
+          <div class="team-info">
+            <h3 class="team-name">{{ faculty.name }}</h3>
+            <p class="team-role">{{ faculty.role }}</p>
+          </div>
+        </div>
+        {% empty %}
+        <!-- Fallback if no faculty in database -->
+        <div class="team-card flip-reveal">
+          <img src="{% static 'images/IMG_6029_qwxxa3.webp' %}" alt="Bhushan Surte" loading="lazy">
+          <div class="team-overlay"></div>
           <div class="team-info">
             <h3 class="team-name">Bhushan Surte</h3>
             <p class="team-role">Director</p>
           </div>
         </div>
-        <div class="magnetic-card team-card">
-          <img src="{% static 'images/IMG_6024.PNG' %}" alt="Lalit Yadav">
+        <div class="team-card flip-reveal">
+          <img src="{% static 'images/IMG_6024_nli0ky.webp' %}" alt="Lalit Yadav" loading="lazy">
           <div class="team-overlay"></div>
-
           <div class="team-info">
             <h3 class="team-name">Lalit Yadav</h3>
             <p class="team-role">Managing Director</p>
           </div>
         </div>
-        <div class="magnetic-card team-card">
-          <img src="{% static 'images/IMG_6027.PNG' %}" alt="Viky More">
+        <div class="team-card flip-reveal">
+          <img src="{% static 'images/IMG_6027_kwa2tk.webp' %}" alt="Viky More" loading="lazy">
           <div class="team-overlay"></div>
-
           <div class="team-info">
             <h3 class="team-name">Viky More</h3>
             <p class="team-role">Director</p>
           </div>
         </div>
+        {% endfor %}
       </div>
     </div>
   </section>
-  {% include 'base/footer.html' %}
-  <script>
-    gsap.registerPlugin(ScrollTrigger, TextPlugin);
 
-    // Hero animations
+  {% include 'base/footer.html' %}
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="{% static 'js/script.js' %}"></script>
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Float animation for stats card
     gsap.to(".hero-glass-card", {
-      y: -18,
-      duration: 3,
-      repeat: -1,
-      yoyo: true,
-      ease: "sine.inOut"
+      y: -12, duration: 3, repeat: -1, yoyo: true, ease: "sine.inOut"
     });
 
+    // Counter animation
     document.querySelectorAll('.counter').forEach(counter => {
       const target = +counter.dataset.target;
-      gsap.fromTo(counter,
-        { innerText: 0 },
-        {
-          innerText: target,
-          duration: 2,
-          snap: { innerText: 1 },
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: counter,
-            start: "top 85%"
-          }
-        }
-      );
+      gsap.fromTo(counter, { innerText: 0 }, {
+        innerText: target, duration: 2,
+        snap: { innerText: 1 }, ease: "power2.out",
+        scrollTrigger: { trigger: counter, start: "top 85%" }
+      });
     });
 
-    gsap.from("#hero-subtitle", {
-      opacity: 0,
-      y: 150,
-      duration: 1.6,
-      delay: 0.6,
-      ease: "power3.out"
-    });
-
-    // Overview Section animations
-    gsap.from(".heading-wrapper", {
-      opacity: 0,
-      y: 40,
-      duration: 1,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: ".overview-section",
-        start: "top 70%",
-        once: true
-      }
-    });
-
-    gsap.from(".overview-card", {
-      opacity: 0,
-      y: 30,
-      duration: 1,
-      stagger: 0.15,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: ".overview-card-grid",
-        start: "top 85%",
-        once: true
-      }
-    });
-
-    gsap.from(".mv-icon-wrapper", {
-      scale: 0.8,
-      opacity: 0,
-      duration: 0.8,
-      stagger: 0.2,
-      ease: "back.out(1.7)",
-      scrollTrigger: {
-        trigger: ".overview-card-grid",
-        start: "top 75%",
-        once: true
-      }
-    });
-
-    // Squad section
-    gsap.from("#squad-title", {
-      opacity: 0,
-      scale: 0.88,
-      y: 100,
-      duration: 1.6,
-      ease: "power4.out",
-      scrollTrigger: {
-        trigger: "#squad-title",
-        start: "top 82%",
-        once: true
-      }
-    });
-
-    // Stable cards with no 3D tilt
-    document.querySelectorAll('.overview-card').forEach(card => {
-      // Hover reveal is now handled via CSS only for performance
-    });
-
-    // Typing / scramble effect
+    // Blurry char-reveal for hero subtitle (same animation as headings)
     document.addEventListener('DOMContentLoaded', () => {
-      const textElement = document.querySelector('.typed-text');
-      const fullText = `Harikrushna Multimedia Institute offers industry-focused multimedia education for creative careers. We provide skill-based courses in Animation, VFX, UI/UX, Digital Marketing, and Design fields. Our practical training and expert guidance prepare students for real-world industry demands. With placement support, we help students confidently enter the digital creative industry.`;
-      const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-      let interval = null;
-      let delayBeforeStart = 500;
+      const p = document.getElementById('hero-subtitle');
+      if (!p) return;
 
-      function startScramble() {
-        let iteration = 0;
-        clearInterval(interval);
-        interval = setInterval(() => {
-          textElement.innerText = fullText
-            .split("")
-            .map((letter, index) => {
-              if (index < iteration) return fullText[index];
-              if (index < iteration + 10) return letters[Math.floor(Math.random() * letters.length)];
-              return "";
-            })
-            .join("");
-          if (iteration >= fullText.length) {
-            clearInterval(interval);
-            textElement.innerText = fullText;
-          }
-          iteration += 3;
-        }, 40);
-      }
+      // Wrap every character in a gaming-char span
+      const text = p.textContent;
+      p.innerHTML = '';
+      let charIndex = 0;
+      [...text].forEach(char => {
+        if (char === ' ') {
+          p.appendChild(document.createTextNode(' '));
+          charIndex++;
+        } else {
+          const span = document.createElement('span');
+          span.className = 'gaming-char';
+          span.textContent = char;
+          span.style.setProperty('--i', charIndex);
+          p.appendChild(span);
+          charIndex++;
+        }
+      });
 
+      // Fire the reveal after headings have started (400ms delay)
       setTimeout(() => {
-        textElement.style.opacity = '1';
-        startScramble();
-      }, delayBeforeStart);
+        p.classList.add('reveal-active');
+      }, 400);
     });
   </script>
 </body>

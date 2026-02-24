@@ -13,6 +13,10 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="{% static 'css/style.css' %}?v=20260208">
+
+    <!-- Preload Critical Hero Assets -->
+    <link rel="preload" as="image" href="{% static 'images/Fantastic_Epic_Wallpapers_ptkmb3.webp' %}">
+    <link rel="preload" as="image" href="{% static 'images/hero-image_ttjoiz.webp' %}">
 </head>
 
 <body>
@@ -67,7 +71,7 @@
 
             <div class="right-image">
                 <div class="image-glow"></div>
-                <img src="{% static 'images/hero-image.png' %}" alt="Harikrushna Logo" class="floating-image">
+                <img src="{% static 'images/hero-image_ttjoiz.webp' %}" alt="Hero Image" class="floating-image">
             </div>
         </div>
 
@@ -85,7 +89,7 @@
     <section class="about-section" id="about-us">
         <div class="about-container">
             <div class="about-img flip-reveal">
-                <img src="{% static 'images/about_image.png' %}" alt="About Harikrushna">
+                <img src="{% static 'images/about_image_bg7vqf.webp' %}" alt="About Harikrushna">
             </div>
 
             <div class="about-text flip-reveal">
@@ -123,7 +127,8 @@
         <div class="sticky-wrapper">
             <div class="sticky-content">
                 <div class="course-horizontal-track" id="courseTrack">
-                    <div class="course-full-card" style="background-image: url('{% static 'images/game-01.jpg' %}');">
+                    <div class="course-full-card"
+                        style="background-image: url('{% static 'images/game-01_m6dgp5.webp' %}');">
                         <div class="course-card-overlay">
                             <span class="course-tag">DESIGNING</span>
                             <h2 class="course-main-title">PROGRAM IN GAME DESIGN</h2>
@@ -135,7 +140,8 @@
                         </div>
                     </div>
 
-                    <div class="course-full-card" style="background-image: url('{% static 'images/game-03.jpg' %}');">
+                    <div class="course-full-card"
+                        style="background-image: url('{% static 'images/game-03_isstkk.webp' %}');">
                         <div class="course-card-overlay">
                             <span class="course-tag">ANIMATIONS</span>
                             <h2 class="course-main-title">PROGRAM IN GRAPHICS & ANIMATIONS</h2>
@@ -146,7 +152,8 @@
                         </div>
                     </div>
 
-                    <div class="course-full-card" style="background-image: url('{% static 'images/game-05.jpg' %}');">
+                    <div class="course-full-card"
+                        style="background-image: url('{% static 'images/game-05_wgg9us.webp' %}');">
                         <div class="course-card-overlay">
                             <span class="course-tag">CREATIVE</span>
                             <h2 class="course-main-title">PROGRAM IN CREATIVE DESIGN</h2>
@@ -154,7 +161,18 @@
                                 More Creative
                                 Freedom, Quicker Prototyping, And Realistic Representation.</p>
                             <a href="{% url 'Creative_Design' %}" class="enroll-btn3">view details</a>
-                            <a href="{% url 'courses' %}" class="explore-btn neon-touch">Explore More Courses</a>
+                        </div>
+                    </div>
+
+                    <!-- New "Explore More" Card -->
+                    <div class="course-full-card explore-more-card"
+                        style="background: linear-gradient(135deg, #1d3557 0%, #0a0a0c 100%);">
+                        <div class="course-card-overlay" style="text-align: center; margin: 0 auto;">
+                            <span class="course-tag">LATEST PROGRAMS</span>
+                            <h2 class="course-main-title">WANT TO SEE MORE?</h2>
+                            <p>Discover our complete range of specialized multimedia and design programs
+                                tailored to your career goals.</p>
+                            <a href="{% url 'courses' %}" class="explore-btn neon-touch">Explore All Courses</a>
                         </div>
                     </div>
                 </div>
@@ -167,7 +185,6 @@
             </div>
         </div>
     </section>
-
     <div class="testimonial-header-wrapper">
         <div class="testimonial-header">
             <h2>Student <span>Testimonials</span></h2>
@@ -185,7 +202,8 @@
                 </div>
                 <div class="panel-footer">
                     <div class="rating">★★★★★</div>
-                    <p class="review-text">"I am a student at Harikrushna Multimedia Institute, currently pursuing an
+                    <p class="review-text">"I am a student at Harikrushna Multimedia Institute, currently
+                        pursuing an
                         Animation
                         course. My experience at the institute has been very positive."</p>
                 </div>
@@ -201,7 +219,8 @@
                 </div>
                 <div class="panel-footer">
                     <div class="rating">★★★★★</div>
-                    <p class="review-text">"I am currently pursuing a Graphic and Video Editing course at Harikrushna
+                    <p class="review-text">"I am currently pursuing a Graphic and Video Editing course at
+                        Harikrushna
                         Multimedia
                         Institute, Adajan, Surat. The environment here is truly amazing."</p>
                 </div>
@@ -217,7 +236,8 @@
                 </div>
                 <div class="panel-footer">
                     <div class="rating">★★★★★</div>
-                    <p class="review-text">"Excellent faculty which drives you with confidence to be one of the best
+                    <p class="review-text">"Excellent faculty which drives you with confidence to be one of
+                        the best
                         amongst the
                         best. Great institute to shape your future."</p>
                 </div>
@@ -233,7 +253,8 @@
                 </div>
                 <div class="panel-footer">
                     <div class="rating">★★★★★</div>
-                    <p class="review-text">"I had a very positive experience at Harikrushna Multimedia Institute, Surat.
+                    <p class="review-text">"I had a very positive experience at Harikrushna Multimedia
+                        Institute, Surat.
                         An
                         excellent place to develop skills."</p>
                 </div>
@@ -250,11 +271,33 @@
             </div>
 
             <div class="portfolio-container">
+                {% for portfolio in portfolios %}
                 <div class="card">
                     <div class="slide slide1">
                         <div class="icon">
-                            <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400"
-                                alt="Ankita Kanpariya">
+                            {% if portfolio.image %}
+                            <img src="{{ portfolio.image.url }}" alt="{{ portfolio.name }}" loading="lazy">
+                            {% else %}
+                            <img src="{% static 'images/placeholder-portfolio.webp' %}" alt="{{ portfolio.name }}"
+                                loading="lazy">
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="slide slide2">
+                        <div class="content">
+                            <h3>{{ portfolio.name }}</h3>
+                            <p>{{ portfolio.role }}<br><strong>{{ portfolio.tools }}</strong></p>
+                            <a href="{{ portfolio.portfolio_link }}" class="visit-link">VISIT PORTFOLIO</a>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <!-- Fallback if no portfolio in database -->
+                <div class="card">
+                    <div class="slide slide1">
+                        <div class="icon">
+                            <img src="{% static 'images/placed_&_/Ankita-03_r6fo1e.webp' %}" alt="Ankita Kanpariya"
+                                loading="lazy">
                         </div>
                     </div>
                     <div class="slide slide2">
@@ -296,10 +339,11 @@
                             <h3>Jeet Patel</h3>
                             <p>Graphics Designer<br><strong>Ps • Ai • Ae • Pr</strong></p>
                             <a href="https://www.instagram.com/p/DRQtK35iIpg/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
-                                class="visit-link">VISIT PORTFOLIO</a>
+                                class="visit-link" loading="lazy">VISIT PORTFOLIO</a>
                         </div>
                     </div>
                 </div>
+                {% endfor %}
             </div>
         </div>
     </section>
@@ -320,8 +364,8 @@
             <div class="placed-students-track" id="autoTrack">
                 <div class="placed-students-card" data-index="01">
                     <div class="student-profile-wrapper">
-                        <div class="image-container"><img
-                                src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400" alt="Student">
+                        <div class="image-container"><img src="{% static 'images/placed_&_/Placement-03_cwtwff.webp' %}"
+                                alt="Mansi Patel" loading="lazy">
                         </div>
                         <div class="student-details">
                             <div class="name-badge">Mansi Patel</div>
@@ -333,12 +377,13 @@
                 </div>
                 <div class="placed-students-card" data-index="02">
                     <div class="student-profile-wrapper">
-                        <div class="image-container"><img
-                                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400" alt="Student">
+                        <div class="image-container"><img src="{% static 'images/placed_&_/mitesh-03_oppdad.webp' %}"
+                                alt="Mitesh" loading="lazy">
                         </div>
                         <div class="student-details">
                             <div class="name-badge">Mitesh Prajapati</div>
-                            <p class="placement-text">For getting placed as a <br><strong>Graphic Designer</strong></p>
+                            <p class="placement-text">For getting placed as a <br><strong>Graphic
+                                    Designer</strong></p>
                             <div class="ctc-tag">CTC - 2.16 LPA</div>
                         </div>
                     </div>
@@ -346,19 +391,21 @@
                 <div class="placed-students-card" data-index="03">
                     <div class="student-profile-wrapper">
                         <div class="image-container"><img
-                                src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400" alt="Student">
+                                src="{% static 'images/placed_&_/ganesh-03_11zon_ggjw0n.webp' %}" alt="Ganesh"
+                                loading="lazy">
                         </div>
                         <div class="student-details">
                             <div class="name-badge">Ganesh Valvi</div>
-                            <p class="placement-text">For getting placed as a <br><strong>Video Editor</strong></p>
+                            <p class="placement-text">For getting placed as a <br><strong>Video
+                                    Editor</strong></p>
                             <div class="ctc-tag">CTC - 2.40 LPA</div>
                         </div>
                     </div>
                 </div>
                 <div class="placed-students-card" data-index="04">
                     <div class="student-profile-wrapper">
-                        <div class="image-container"><img
-                                src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400" alt="Student">
+                        <div class="image-container"><img src="{% static 'images/placed_&_/Ankita-03_r6fo1e.webp' %}"
+                                alt="Ankita K" loading="lazy">
                         </div>
                         <div class="student-details">
                             <div class="name-badge">Ankita K</div>
@@ -370,12 +417,13 @@
                 </div>
                 <div class="placed-students-card" data-index="05">
                     <div class="student-profile-wrapper">
-                        <div class="image-container"><img
-                                src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400" alt="Student">
+                        <div class="image-container"><img src="{% static 'images/placed_&_/Fenil-03_eqhya8.webp' %}"
+                                alt="Fenil Patel" loading="lazy">
                         </div>
                         <div class="student-details">
                             <div class="name-badge">Fenil Patel</div>
-                            <p class="placement-text">For getting placed as a <br><strong>Graphic Designer & Video
+                            <p class="placement-text">For getting placed as a <br><strong>Graphic Designer &
+                                    Video
                                     Editor</strong></p>
                             <div class="ctc-tag">CTC - 1.80 LPA</div>
                         </div>
@@ -383,48 +431,52 @@
                 </div>
                 <div class="placed-students-card" data-index="06">
                     <div class="student-profile-wrapper">
-                        <div class="image-container"><img
-                                src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400" alt="Student">
+                        <div class="image-container"><img src="{% static 'images/placed_&_/Vishal-03_vfjczw.webp' %}"
+                                alt="Vishal" loading="lazy">
                         </div>
                         <div class="student-details">
                             <div class="name-badge">Vishal Prajapati</div>
-                            <p class="placement-text">For getting placed as a <br><strong>Graphic Designer</strong></p>
+                            <p class="placement-text">For getting placed as a <br><strong>Graphic
+                                    Designer</strong></p>
                             <div class="ctc-tag">CTC - 96k PA</div>
                         </div>
                     </div>
                 </div>
                 <div class="placed-students-card" data-index="07">
                     <div class="student-profile-wrapper">
-                        <div class="image-container"><img
-                                src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400" alt="Student">
+                        <div class="image-container"><img src="{% static 'images/placed_&_/Pathik-03_vjuvl1.webp' %}"
+                                alt="Pathik" loading="lazy">
                         </div>
                         <div class="student-details">
                             <div class="name-badge">Pathik Patel</div>
-                            <p class="placement-text">For getting placed as a <br><strong>Graphic Designer</strong></p>
+                            <p class="placement-text">For getting placed as a <br><strong>Graphic
+                                    Designer</strong></p>
                             <div class="ctc-tag">CTC - 90k PA</div>
                         </div>
                     </div>
                 </div>
                 <div class="placed-students-card" data-index="08">
                     <div class="student-profile-wrapper">
-                        <div class="image-container"><img
-                                src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400" alt="Student">
+                        <div class="image-container"><img src="{% static 'images/placed_&_/kenil-03_nfmeeh.webp' %}"
+                                alt="Kenil" loading="lazy">
                         </div>
                         <div class="student-details">
                             <div class="name-badge">Kenil Patel</div>
-                            <p class="placement-text">For getting placed as a <br><strong>Graphic Designer</strong></p>
+                            <p class="placement-text">For getting placed as a <br><strong>Graphic
+                                    Designer</strong></p>
                             <div class="ctc-tag">CTC - 1.86 LPA</div>
                         </div>
                     </div>
                 </div>
                 <div class="placed-students-card" data-index="09">
                     <div class="student-profile-wrapper">
-                        <div class="image-container"><img
-                                src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400" alt="Student">
+                        <div class="image-container"><img src="{% static 'images/placed_&_/Placement-03_cwtwff.webp' %}"
+                                alt="Jeet Patel" loading="lazy">
                         </div>
                         <div class="student-details">
                             <div class="name-badge">Jeet Patel</div>
-                            <p class="placement-text">For getting placed as a <br><strong>Graphic Designer & Video
+                            <p class="placement-text">For getting placed as a <br><strong>Graphic Designer &
+                                    Video
                                     Editor</strong></p>
                             <div class="ctc-tag">CTC - 1.20 LPA</div>
                         </div>
@@ -432,12 +484,13 @@
                 </div>
                 <div class="placed-students-card" data-index="10">
                     <div class="student-profile-wrapper">
-                        <div class="image-container"><img
-                                src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400" alt="Student">
+                        <div class="image-container"><img src="{% static 'images/placed_&_/Deep-03_aspckl.webp' %}"
+                                alt="Deep" loading="lazy">
                         </div>
                         <div class="student-details">
                             <div class="name-badge">Deep Patel</div>
-                            <p class="placement-text">For getting placed as a <br><strong>Graphic Designer & Video
+                            <p class="placement-text">For getting placed as a <br><strong>Graphic Designer &
+                                    Video
                                     Editor</strong></p>
                             <div class="ctc-tag">CTC - 2.40 LPA</div>
                         </div>
@@ -445,44 +498,47 @@
                 </div>
                 <div class="placed-students-card" data-index="11">
                     <div class="student-profile-wrapper">
-                        <div class="image-container"><img
-                                src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400" alt="Student">
+                        <div class="image-container"><img src="{% static 'images/placed_&_/Aarti-03_lnrjjr.webp' %}"
+                                alt="Aarti" loading="lazy">
                         </div>
                         <div class="student-details">
                             <div class="name-badge">Arti Patel</div>
-                            <p class="placement-text">For getting placed as a <br><strong>CAD Designer</strong></p>
+                            <p class="placement-text">For getting placed as a <br><strong>CAD
+                                    Designer</strong></p>
                             <div class="ctc-tag">CTC - 1.38 LPA</div>
                         </div>
                     </div>
                 </div>
                 <div class="placed-students-card" data-index="12">
                     <div class="student-profile-wrapper">
-                        <div class="image-container"><img
-                                src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400" alt="Student">
+                        <div class="image-container"><img src="{% static 'images/placed_&_/Niraj-03_yo9chw.webp' %}"
+                                alt="Niraj" loading="lazy">
                         </div>
                         <div class="student-details">
                             <div class="name-badge">Niraj Patel</div>
-                            <p class="placement-text">For getting placed as a <br><strong>Graphic Designer</strong></p>
+                            <p class="placement-text">For getting placed as a <br><strong>Graphic
+                                    Designer</strong></p>
                             <div class="ctc-tag">CTC - 2.10 LPA</div>
                         </div>
                     </div>
                 </div>
                 <div class="placed-students-card" data-index="13">
                     <div class="student-profile-wrapper">
-                        <div class="image-container"><img
-                                src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400" alt="Student">
+                        <div class="image-container"><img src="{% static 'images/placed_&_/Varshil-03_uiagll.webp' %}"
+                                alt="Varshil" loading="lazy">
                         </div>
                         <div class="student-details">
                             <div class="name-badge">Varshil Tailor</div>
-                            <p class="placement-text">For getting placed as a <br><strong>Video Editor</strong></p>
+                            <p class="placement-text">For getting placed as a <br><strong>Video
+                                    Editor</strong></p>
                             <div class="ctc-tag">CTC - 1.20 LPA</div>
                         </div>
                     </div>
                 </div>
                 <div class="placed-students-card" data-index="14">
                     <div class="student-profile-wrapper">
-                        <div class="image-container"><img
-                                src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400" alt="Student">
+                        <div class="image-container"><img src="{% static 'images/placed_&_/Placement-03_cwtwff.webp' %}"
+                                alt="Raj Kumar" loading="lazy">
                         </div>
                         <div class="student-details">
                             <div class="name-badge">Raj Kumar</div>
@@ -504,7 +560,7 @@
 
     {% include 'base/footer.html' %}
 
-    <script src="{% static 'js/script.js' %}?v=20260209"></script>
+    <script src="{% static 'js/script.js' %}?v=20260222"></script>
 </body>
 
 </html>

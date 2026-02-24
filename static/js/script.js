@@ -15,29 +15,85 @@ if (menuToggle) {
   });
 }
 
-// Page Load Animations
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    const bgImage = document.querySelector('.bg-image');
-    if (bgImage) bgImage.classList.add('loaded');
-  }, 100);
+// Optimization: Pre-calculate measurements to avoid layout thrashing during scroll
+let measurements = {
+  windowHeight: window.innerHeight,
+  flipElements: [],
+  horizontal: null
+};
+
+// 🚀 PERFORMANCE OPTIMIZATION: Initialize hero as fast as possible
+function fastHeroReveal() {
+  const bgImage = document.querySelector('.bg-image');
+  if (bgImage) bgImage.classList.add('loaded');
 
   setTimeout(() => {
-    const elements = ['.left-content', '.right-image', '.btn-group'];
-    elements.forEach(selector => {
-      const el = document.querySelector(selector);
+    ['.left-content', '.right-image', '.btn-group'].forEach(sel => {
+      const el = document.querySelector(sel);
       if (el) el.classList.add('show');
     });
-  }, 600);
 
-  handleScrollEffects();
-  startAutoScroll();
-  setupGamingTextAnimation();
+    const heroTitle = document.querySelector('.hero-title');
+    if (heroTitle) processElement(heroTitle);
+  }, 100); // Drastically reduced delay
+}
+
+// Ensure pre-rendering check
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', fastHeroReveal);
+} else {
+  fastHeroReveal();
+}
+
+window.addEventListener('load', () => {
+  // 1. Initial measurement (needs images for accuracy)
+  updateMeasurements();
+
+  // 2. Initialize secondary interactive components
+  initializePlacedStudents();
+
+  // 3. Defer heavy decorative animations
+  setTimeout(setupGamingTextAnimation, 100);
 });
 
-// Gaming Text Animation System
+window.addEventListener('resize', () => {
+  updateMeasurements();
+}, { passive: true });
+
+function updateMeasurements() {
+  measurements.windowHeight = window.innerHeight;
+  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+  // Flip Elements
+  const flips = document.querySelectorAll('.flip-reveal');
+  measurements.flipElements = Array.from(flips).map(el => {
+    const rect = el.getBoundingClientRect();
+    return {
+      el,
+      top: rect.top + scrollTop,
+      height: rect.height
+    };
+  });
+
+  // Horizontal Section
+  const wrapper = document.querySelector('.sticky-wrapper');
+  const track = document.getElementById('courseTrack');
+  const progress = document.getElementById('progressSegment');
+  if (wrapper && track) {
+    const wrapperRect = wrapper.getBoundingClientRect();
+    measurements.horizontal = {
+      wrapper,
+      track,
+      progress,
+      offsetTop: wrapperRect.top + scrollTop,
+      offsetHeight: wrapperRect.height,
+      scrollWidth: track.scrollWidth
+    };
+  }
+}
+
+// Gaming Text Animation System - On-Demand Processing
 function setupGamingTextAnimation() {
-  // Select headers, titles, buttons, AND the hero paragraph
   const targets = document.querySelectorAll(`
         h1:not(.processed),
         h2:not(.processed),
@@ -50,238 +106,236 @@ function setupGamingTextAnimation() {
         .left-content p:not(.processed)
       `);
 
-  targets.forEach(el => {
-    el.classList.add('processed');
-    const hasManualSpans = el.querySelector('.gaming-char');
-
-    if (!hasManualSpans) {
-      const originalHTML = el.innerHTML;
-      const hasNestedSpan = el.querySelector('span');
-
-      if (hasNestedSpan) {
-        // Complex case: nested spans (like headers with colors)
-        const walker = document.createTreeWalker(
-          el,
-          NodeFilter.SHOW_TEXT,
-          null,
-          false
-        );
-
-        const textNodes = [];
-        let node;
-        while (node = walker.nextNode()) {
-          // Preserve contentful text nodes
-          if (node.textContent.length > 0 && !/^\s*[\r\n]+\s*$/.test(node.textContent)) {
-            textNodes.push(node);
-          }
-        }
-
-        let charIndex = 0;
-        textNodes.forEach(textNode => {
-          const text = textNode.textContent;
-          const fragment = document.createDocumentFragment();
-
-          [...text].forEach((char) => {
-            if (/[\r\n\t]/.test(char)) {
-              fragment.appendChild(document.createTextNode(char));
-              return;
-            }
-
-            if (char === ' ') {
-              // Insert regular space text node logic
-              fragment.appendChild(document.createTextNode(' '));
-              charIndex++;
-            } else {
-              const span = document.createElement('span');
-              span.textContent = char;
-              span.className = 'gaming-char';
-              span.style.setProperty('--i', charIndex);
-              fragment.appendChild(span);
-              charIndex++;
-            }
-          });
-
-          textNode.parentNode.replaceChild(fragment, textNode);
-        });
-      } else {
-        // Simple text wrapping
-        const text = el.textContent.trim();
-        el.innerHTML = '';
-        [...text].forEach((char, index) => {
-          if (char === ' ') {
-            el.appendChild(document.createTextNode(' '));
-          } else {
-            const span = document.createElement('span');
-            span.textContent = char;
-            span.className = 'gaming-char';
-            span.style.setProperty('--i', index);
-            el.appendChild(span);
-          }
-        });
-      }
-    }
-  });
-
-  // IntersectionObserver
-  const observer = new IntersectionObserver((entries) => {
+  // Use IntersectionObserver to process only when visible
+  const processingObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.classList.add('reveal-active');
-      } else {
-        entry.target.classList.remove('reveal-active');
+        processElement(entry.target);
+        processingObserver.unobserve(entry.target);
       }
     });
-  }, {
-    threshold: 0.1,
-    rootMargin: "0px 0px -50px 0px"
-  });
+  }, { threshold: 0.1 });
 
-  document.querySelectorAll('.processed').forEach(el => observer.observe(el));
+  targets.forEach(el => processingObserver.observe(el));
 }
 
-// Scroll Effects Handler
-const handleScrollEffects = () => {
-  /* const nav = document.querySelector('.navbar');
-  if (nav) {
-    window.scrollY > 100 ? nav.classList.add('scrolled') : nav.classList.remove('scrolled');
-  } */
+function processElement(el) {
+  if (el.classList.contains('processed')) return;
+  el.classList.add('processed');
 
-  const flipElements = document.querySelectorAll('.flip-reveal');
-  const windowHeight = window.innerHeight;
+  // Active state observer
+  const activeObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      entry.target.classList.toggle('reveal-active', entry.isIntersecting);
+    });
+  }, { threshold: 0.1 });
 
-  flipElements.forEach(el => {
-    const rect = el.getBoundingClientRect();
-    const elementCenter = rect.top + rect.height / 2;
-    const viewportCenter = windowHeight / 2;
-    const distanceFromCenter = Math.abs(viewportCenter - elementCenter);
-    const maxDistance = windowHeight / 1.5;
-    const normalizedDistance = Math.min(distanceFromCenter / maxDistance, 1);
-    const scale = 1 - (0.15 * normalizedDistance);
-    const rotation = -10 * normalizedDistance;
-    const translateY = normalizedDistance * 40;
-    const opacity = 1 - normalizedDistance;
+  activeObserver.observe(el);
 
-    if (rect.top < windowHeight && rect.bottom > 0) {
-      el.classList.add('active');
-      el.style.transform = `scale(${scale}) rotateX(${rotation}deg) translateY(${translateY}px)`;
-      el.style.opacity = opacity + 0.2;
-    } else {
-      el.classList.remove('active');
+  const hasManualSpans = el.querySelector('.gaming-char');
+  if (hasManualSpans) return;
+
+  const hasNestedSpan = el.querySelector('span');
+  if (hasNestedSpan) {
+    // Walker logic
+    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+    const textNodes = [];
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.textContent.trim().length > 0) textNodes.push(node);
+    }
+
+    let charIndex = 0;
+    textNodes.forEach(textNode => {
+      const fragment = document.createDocumentFragment();
+      [...textNode.textContent].forEach(char => {
+        if (char === ' ') {
+          fragment.appendChild(document.createTextNode(' '));
+        } else {
+          const span = document.createElement('span');
+          span.textContent = char;
+          span.className = 'gaming-char';
+          span.style.setProperty('--i', charIndex++);
+          fragment.appendChild(span);
+        }
+      });
+      textNode.parentNode.replaceChild(fragment, textNode);
+    });
+  } else {
+    // Simple logic
+    const text = el.textContent.trim();
+    el.innerHTML = '';
+    [...text].forEach((char, index) => {
+      if (char === ' ') {
+        el.appendChild(document.createTextNode(' '));
+      } else {
+        const span = document.createElement('span');
+        span.textContent = char;
+        span.className = 'gaming-char';
+        span.style.setProperty('--i', index);
+        el.appendChild(span);
+      }
+    });
+  }
+}
+
+function handleScrollEffects() {
+  const scrollTop = window.scrollY;
+  const viewportCenter = scrollTop + measurements.windowHeight / 2;
+
+  measurements.flipElements.forEach(item => {
+    const elementTop = item.top;
+    const elementBottom = elementTop + item.height;
+
+    if (elementTop < scrollTop + measurements.windowHeight && elementBottom > scrollTop) {
+      const itemCenter = elementTop + item.height / 2;
+      const distanceFromCenter = Math.abs(viewportCenter - itemCenter);
+      const maxDistance = measurements.windowHeight / 1.5;
+      const normalizedDistance = Math.min(distanceFromCenter / maxDistance, 1);
+
+      const scale = 1 - (0.15 * normalizedDistance);
+      const rotation = -10 * normalizedDistance;
+      const translateY = normalizedDistance * 40;
+      const opacity = 1 - normalizedDistance;
+
+      item.el.classList.add('active');
+      item.el.style.transform = `translate3d(0, ${translateY}px, 0) scale(${scale}) rotateX(${rotation}deg)`;
+      item.el.style.opacity = opacity + 0.2;
+    } else if (item.el.classList.contains('active')) {
+      item.el.classList.remove('active');
     }
   });
-};
+}
 
 window.addEventListener('scroll', () => {
-  window.requestAnimationFrame(handleScrollEffects);
-});
+  // Use requestAnimationFrame for smoother performance
+  if (!window.scrollTicking) {
+    window.requestAnimationFrame(() => {
+      handleScrollEffects();
+      window.scrollTicking = false;
+    });
+    window.scrollTicking = true;
+  }
+}, { passive: true });
 
 // Horizontal Scroll Course Section
-window.addEventListener('scroll', () => {
-  const wrapper = document.querySelector('.sticky-wrapper');
-  const track = document.getElementById('courseTrack');
-  const progress = document.getElementById('progressSegment');
 
-  if (!wrapper || !track) return;
+function handleHorizontalScroll() {
+  if (!measurements.horizontal) return;
 
-  const wrapperTop = wrapper.offsetTop;
-  const wrapperHeight = wrapper.offsetHeight;
-  const viewportHeight = window.innerHeight;
+  const { offsetTop, offsetHeight, track, progress, scrollWidth } = measurements.horizontal;
+  const scrollTop = window.scrollY;
 
-  let scrollFraction = (window.scrollY - wrapperTop) / (wrapperHeight - viewportHeight);
+  let scrollFraction = (scrollTop - offsetTop) / (offsetHeight - measurements.windowHeight);
   scrollFraction = Math.max(0, Math.min(1, scrollFraction));
 
-  const maxMove = track.scrollWidth - window.innerWidth;
+  const maxMove = scrollWidth - window.innerWidth;
   if (maxMove > 0) {
-    track.style.transform = `translateX(-${scrollFraction * maxMove}px)`;
+    track.style.transform = `translate3d(-${scrollFraction * maxMove}px, 0, 0)`;
   }
 
   if (progress) progress.style.width = `${scrollFraction * 100}%`;
-});
-
-// Placed Students Auto-Scroll
-const psTrack = document.getElementById('autoTrack');
-const psProgressFill = document.querySelector('.progress-fill');
-const psCurrentNum = document.getElementById('current-number');
-const psCards = document.querySelectorAll('.placed-students-card');
-
-let psScrollPos = 0;
-let psIsPaused = false;
-
-if (psTrack) {
-  psTrack.addEventListener('mouseenter', () => psIsPaused = true);
-  psTrack.addEventListener('mouseleave', () => psIsPaused = false);
 }
 
-function startAutoScroll() {
+window.addEventListener('scroll', () => {
+  if (!window.horizontalTicking) {
+    window.requestAnimationFrame(() => {
+      handleHorizontalScroll();
+      window.horizontalTicking = false;
+    });
+    window.horizontalTicking = true;
+  }
+}, { passive: true });
+
+// Placed Students Infinite Scroll - CSS Animation Powered
+function initializePlacedStudents() {
+  const psTrack = document.getElementById('autoTrack');
+  const psProgressFill = document.querySelector('.progress-fill');
+  const psCurrentNum = document.getElementById('current-number');
+
   if (!psTrack) return;
 
-  if (!psIsPaused) {
-    psScrollPos += 1;
-    const halfWidth = psTrack.scrollWidth / 2;
-    if (psScrollPos >= halfWidth) psScrollPos = 0;
-    psTrack.style.transform = `translateX(-${psScrollPos}px)`;
-    updatePlacedStudentsUI(psScrollPos, halfWidth);
-  }
-  requestAnimationFrame(startAutoScroll);
+  const cards = Array.from(psTrack.children);
+  const cardCount = cards.length;
+
+  // Clone cards for infinite loop
+  cards.forEach(card => {
+    const clone = card.cloneNode(true);
+    psTrack.appendChild(clone);
+  });
+
+  // Calculate duration (e.g., 5s per card)
+  const duration = cardCount * 5;
+  psTrack.style.animation = `psInfiniteScroll ${duration}s linear infinite`;
+
+  // Pause on hover
+  psTrack.addEventListener('mouseenter', () => psTrack.style.animationPlayState = 'paused');
+  psTrack.addEventListener('mouseleave', () => psTrack.style.animationPlayState = 'running');
+
+  // Efficient active state tracking using IntersectionObserver
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const index = entry.target.getAttribute('data-index');
+        if (index && psCurrentNum) {
+          psCurrentNum.innerText = index;
+          if (psProgressFill) {
+            const pct = (parseInt(index) / cardCount) * 100;
+            psProgressFill.style.width = `${pct}%`;
+          }
+        }
+      }
+    });
+  }, {
+    root: psTrack.parentElement,
+    threshold: 0.5
+  });
+
+  cards.forEach(card => observer.observe(card));
 }
 
-function updatePlacedStudentsUI(pos, max) {
-  if (psProgressFill) {
-    const percentage = (pos / max) * 100;
-    psProgressFill.style.width = `${percentage}%`;
-  }
-  psCards.forEach((card) => {
-    const rect = card.getBoundingClientRect();
-    if (rect.left > 0 && rect.left < 250) {
-      const index = card.getAttribute('data-index');
-      if (index && psCurrentNum) psCurrentNum.innerText = index;
-    }
-  });
-}
 document.addEventListener('DOMContentLoaded', function () {
   const cards = document.querySelectorAll('.card');
 
-  // Add click event to each card to mark it as active
   cards.forEach(card => {
+    card.addEventListener('click', function (e) {
+      const isActive = this.classList.contains('card-active');
+
+      // Close all cards first
+      cards.forEach(c => c.classList.remove('card-active'));
+
+      // If the clicked card wasn't active, make it active
+      if (!isActive) {
+        this.classList.add('card-active');
+      }
+
+      e.stopPropagation();
+    });
+
+    // Hover effect for Desktop
     card.addEventListener('mouseenter', function () {
-      this.classList.add('card-active');
+      if (window.matchMedia("(min-width: 1025px)").matches) {
+        this.classList.add('card-active');
+      }
     });
 
     card.addEventListener('mouseleave', function () {
-      this.classList.remove('card-active');
+      if (window.matchMedia("(min-width: 1025px)").matches) {
+        this.classList.remove('card-active');
+      }
     });
   });
 
-  // Close card when clicking anywhere outside
-  document.addEventListener('click', function (event) {
-    const clickedCard = event.target.closest('.card');
-
-    // If click is outside all cards, remove hover state from all cards
-    if (!clickedCard) {
-      cards.forEach(card => {
-        card.classList.remove('card-active');
-        // Force remove hover state by triggering a reflow
-        card.style.pointerEvents = 'none';
-        setTimeout(() => {
-          card.style.pointerEvents = 'auto';
-        }, 10);
-      });
-    }
+  // Close when clicking outside
+  document.addEventListener('click', () => {
+    cards.forEach(c => c.classList.remove('card-active'));
   });
 
-  // Alternative: Close on touch for mobile devices
-  document.addEventListener('touchstart', function (event) {
-    const clickedCard = event.target.closest('.card');
-
-    if (!clickedCard) {
-      cards.forEach(card => {
-        card.classList.remove('card-active');
-        card.style.pointerEvents = 'none';
-        setTimeout(() => {
-          card.style.pointerEvents = 'auto';
-        }, 10);
-      });
+  // Also close on scroll on mobile to avoid sticky cards
+  window.addEventListener('scroll', () => {
+    if (window.innerWidth <= 1024) {
+      cards.forEach(card => card.classList.remove('card-active'));
     }
-  });
+  }, { passive: true });
 });
 // ......

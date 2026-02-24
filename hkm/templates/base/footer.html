@@ -123,17 +123,27 @@
         font-size: 14px;
     }
 
-    .btn-verify {
-        display: inline-block;
-        color: #e63946;
-        border: 1px solid #e63946;
-        padding: 10px 20px;
-        margin-top: 15px;
-        text-decoration: none;
-        transition: 0.3s;
-        font-family: 'Inter', sans-serif;
-        font-weight: 400;
-    }
+        .contact-info a {
+            color: #fff;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .contact-info a:hover {
+            color: #e63946;
+        }
+
+        .btn-verify {
+            display: inline-block;
+            color: #e63946;
+            border: 1px solid #e63946;
+            padding: 10px 20px;
+            margin-top: 15px;
+            text-decoration: none;
+            transition: 0.3s;
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+        }
 
     .btn-verify:hover {
         background: #e63946;
@@ -270,18 +280,70 @@
                     <i class="fas fa-envelope email-icon"></i>
                     <a href="mailto:info@hkm.edu">harikrushnamultimedia@gmail.com</a>
                 </p>
+                <div class="social-links">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/harikrushna_multimedia?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+                        class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h3 class="col-title anim-text">Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'aboutus' %}">About Us</a></li>
+                    <li><a href="{% url 'courses' %}">Courses</a></li>
+                    <li><a href="{% url 'home' %}#portfolios">Portfolios</a></li>
+                    <li><a href="{% url 'events' %}">Event</a></li>
+                    <li><a href="{% url 'contacts' %}">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3 class="col-title anim-text">Our Courses</h3>
+                <ul class="footer-links">
+                    <li><a href="{% url 'Graphics_Design' %}">Graphics Design</a></li>
+                    <li><a href="{% url '2D_Animation' %}">2D Animation</a></li>
+                    <li><a href="{% url 'Video_Editing' %}">Video Editing</a></li>
+                    <li><a href="{% url '3D_Animation' %}">3D Animation</a></li>
+                    <li><a href="{% url '3D_Architectural' %}">3D Architectural</a></li>
+                    <li><a href="{% url 'UI_UX_Design' %}">UI/UX Design</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3 class="col-title anim-text">Contact Us</h3>
+                <div class="contact-info">
+                    <p>
+                        <i class="fas fa-map-marker-alt add"></i>
+                        M-36/37, 2nd Floor, Raj Corner Shopping Centre, TP 10 Main Rd, near
+                        L.P. Savani, Pal Surat, Gujarat
+                    </p>
+
+                    <p>
+                        <i class="fas fa-phone call-icon"></i>
+                        +91 96648 33542
+                    </p>
+
+                    <p>
+                        <i class="fas fa-envelope email-icon"></i>
+                        <a href="mailto:info@hkm.edu">harikrushnamultimedia@gmail.com</a>
+                    </p>
+                </div>
+                <a href="#" class="btn-verify anim-text">Verify Student Certificate</a>
             </div>
             <a href="#" class="btn-verify anim-text">Verify Student Certificate</a>
         </div>
     </div>
 
-    <!-- NEW: Footer Logos Section -->
-    <div class="footer-logos">
-        <img src="{% static 'images/im1.png' %}" alt="Logo 1"> <!-- Replace with actual logo path -->
-        <img src="{% static 'images/im2.png' %}" alt="Logo 2"> <!-- Replace with actual logo path -->
-        <img src="{% static 'images/im3.png' %}" alt="Logo 3"> <!-- Replace with actual logo path -->
-        <img src="{% static 'images/im4.png' %}" alt="Logo 4"> <!-- Replace with actual logo path -->
-    </div>
+        <div class="footer-logos">
+            <img src="{% static 'images/im1_kekhrs.webp' %}" alt="Logo 1">
+            <img src="{% static 'images/im2_cjjd96.webp' %}" alt="Logo 2">
+            <img src="{% static 'images/im3_arbb3c.webp' %}" alt="Logo 3">
+            <img src="{% static 'images/im4_gnwxms.webp' %}" alt="Logo 4">
+        </div>
 
     <div class="footer-bottom">
         <p>© 2026 Harikrishna Multimedia Institute. All rights reserved.</p>

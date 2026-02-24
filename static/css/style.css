@@ -150,8 +150,15 @@ body {
 
 /* Brochure Button - Secondary Action (Red Outline) */
 .nav-brochure {
-  display: flex;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   gap: 10px;
   padding: 8px 24px;
   border: 2px solid var(--primary-red);
@@ -163,11 +170,14 @@ body {
   text-transform: uppercase;
   letter-spacing: 1px;
   text-decoration: none;
-  transition: all 0.4s ease;
+  -webkit-transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
   position: relative;
   overflow: hidden;
   z-index: 1;
-  margin-left: 10px;
+  white-space: nowrap;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
 }
 
 /* Slide Fill Effect on Hover */
@@ -251,7 +261,7 @@ body {
 .bg-image {
   position: absolute;
   inset: 0;
-  background-image: url('../images/Fantastic Epic Wallpapers.jpg');
+  background-image: url('../images/Fantastic_Epic_Wallpapers_ptkmb3.webp');
   background-size: cover;
   background-position: center;
   opacity: 0.6;
@@ -541,10 +551,11 @@ body {
 
 .particle {
   position: absolute;
-  background: radial-gradient(circle, rgba(230, 57, 70, 0.8) 0%, transparent 70%);
+  background: rgba(230, 57, 70, 0.5);
   border-radius: 50%;
-  filter: blur(2px);
   animation: professionalFloat 20s infinite ease-in-out;
+  will-change: transform;
+  /* Filter removed for performance */
 }
 
 .particle:nth-child(1) {
@@ -804,22 +815,15 @@ body {
   }
 }
 
-/* Refined Glowing Effect Behind Hero Image */
 .image-glow {
   position: absolute;
-  width: 130%;
-  height: 130%;
-  top: -15%;
-  left: -15%;
-  background: radial-gradient(circle,
-      rgba(230, 57, 70, 0.4) 0%,
-      rgba(29, 53, 87, 0.3) 35%,
-      rgba(230, 57, 70, 0.2) 60%,
-      transparent 100%);
-  animation: refinedGlowRotate 15s linear infinite;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: radial-gradient(circle, rgba(230, 57, 70, 0.2) 0%, transparent 70%);
   z-index: -1;
-  filter: blur(60px);
-  opacity: 0.7;
+  opacity: 0.5;
 }
 
 @keyframes refinedGlowRotate {
@@ -1215,12 +1219,30 @@ body {
   padding: clamp(60px, 10vw, 100px) clamp(20px, 5vw, 60px);
 }
 
+@media (max-width: 768px) {
+  .course-header-wrapper {
+    padding-top: 110px;
+    /* Clear fixed navbar */
+    padding-bottom: 40px;
+  }
+}
+
 .course-header {
   text-align: left;
   margin-bottom: clamp(-80px, -10vw, -145px);
   border-left: 5px solid #e63946;
   padding-left: 20px;
   padding-top: 0px;
+  position: relative;
+  transition: all 0.4s ease;
+}
+
+@media (max-width: 768px) {
+  .course-header {
+    margin-bottom: 30px;
+    border-left-width: 4px;
+    padding-left: 15px;
+  }
 }
 
 .course-header h2 {
@@ -1257,7 +1279,7 @@ body {
 }
 
 .sticky-wrapper {
-  height: 500vh;
+  height: 600vh;
   position: relative;
 }
 
@@ -1457,7 +1479,7 @@ body {
   opacity: 10;
   overflow: hidden;
   background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
-    url('../images/service-bg.jpg');
+    url('../images/service-bg_huoke5.webp');
   margin-top: clamp(80px, 15vw, 120px);
 }
 
@@ -1698,15 +1720,13 @@ body {
 .card {
   position: relative;
   width: 100%;
-  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
   cursor: pointer;
+  will-change: transform;
 }
 
 /* Active state for cards (when hovered or clicked) */
-.card.card-active .slide.slide1,
-.card:hover .slide.slide1 {
-  /* Hover translations will be added by media queries below */
-}
+/* Active state handled by :hover and specific media queries below */
 
 .card.card-active .slide.slide2,
 .card:hover .slide.slide2 {
@@ -1716,9 +1736,9 @@ body {
 
 .card.card-active .slide1 .icon img,
 .card:hover .slide1 .icon img {
-  transform: scale(1.1) rotate(5deg);
+  transform: scale(1.05);
   border-color: #e63946;
-  box-shadow: 0 12px 40px rgba(230, 57, 70, 0.5);
+  box-shadow: 0 15px 35px rgba(230, 57, 70, 0.4);
 }
 
 /* Large Desktop */
@@ -1817,8 +1837,10 @@ body {
   justify-content: center;
   border: none;
   border-radius: 15px;
-  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
   box-shadow: none;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .card:hover .slide.slide1 {
@@ -1929,9 +1951,11 @@ body {
   justify-content: center;
   padding: 20px 18px;
   border-radius: 20px;
-  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1);
   opacity: 0;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 @media (max-width: 767px) {
@@ -2101,6 +2125,17 @@ body {
   align-items: center;
   width: max-content;
   will-change: transform;
+  /* Animation will be added via JS to calculate duration dynamically */
+}
+
+@keyframes psInfiniteScroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
 }
 
 .placed-students-card {
@@ -2112,13 +2147,14 @@ body {
   flex-shrink: 0;
   border: none;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 .placed-students-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
-  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
 .image-container {
@@ -2191,7 +2227,8 @@ body {
   top: -1px;
   background: var(--primary-red);
   width: 0%;
-  transition: width 0.1s linear;
+  transition: width 0.3s ease-out;
+  /* Smoother update */
   border-radius: 2px;
   box-shadow: 0 0 10px var(--primary-red);
 }
@@ -2366,7 +2403,7 @@ body {
     display: flex !important;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     position: absolute;
     top: calc(100% + 15px);
     left: 0;
@@ -2374,7 +2411,7 @@ body {
     background: rgba(10, 10, 12, 0.98);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
-    padding: 40px 0;
+    padding: 30px 0 40px 0;
     border-radius: 30px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
@@ -2383,6 +2420,8 @@ body {
     transform: translateY(-20px) scale(0.95);
     transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     pointer-events: none;
+    max-height: 80vh;
+    overflow-y: auto;
   }
 
   .navbar.mobile-menu-open .nav-links {
@@ -2423,10 +2462,28 @@ body {
   }
 
   .nav-cta {
-    margin: 15px auto 0 !important;
+    margin: 15px auto 20px !important;
     width: 80% !important;
     text-align: center;
     padding: 15px 0 !important;
+    display: block !important;
+  }
+
+  .nav-brochure {
+    margin: 15px auto 0 !important;
+    width: 85% !important;
+    max-width: 300px;
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+    -webkit-box-align: center !important;
+    -ms-flex-align: center !important;
+    align-items: center !important;
+    -webkit-box-pack: center !important;
+    -ms-flex-pack: center !important;
+    justify-content: center !important;
+    padding: 14px 0 !important;
+    font-size: 0.95rem !important;
   }
 
   .logo-text {
@@ -2489,6 +2546,15 @@ body {
     padding-top: 80px;
   }
 
+  /* Global section padding fix for mobile */
+  section,
+  .course-section-container,
+  .about-section,
+  .portfolio-section,
+  .contact-section {
+    padding-top: 100px !important;
+  }
+
   .scroll-indicator {
     bottom: 15px;
   }
@@ -2506,8 +2572,8 @@ body {
   }
 
   .nav-logo {
-    height: 65px !important;
-    width: 195px !important;
+    height: 40px !important;
+    width: 120px !important;
     object-fit: contain;
   }
 
@@ -2538,8 +2604,7 @@ body {
   }
 
   .explore-btn {
-    margin-left: 0;
-    margin-top: 15px;
+    margin: 15px auto 0;
     display: block;
     width: fit-content;
   }
@@ -2566,20 +2631,6 @@ body {
   .testimonial-panel:not(:hover) .panel-name {
     writing-mode: horizontal-tb;
     transform: none;
-  }
-
-  /* Portfolio cards */
-  .card {
-    width: 90vw;
-    max-width: 350px;
-  }
-
-  .card:hover .slide.slide1 {
-    transform: translateY(-100px);
-  }
-
-  .card:hover .slide.slide2 {
-    transform: translateY(100px);
   }
 
   /* Placed students */
@@ -2621,9 +2672,21 @@ body {
   }
 
   .bottom-links a {
-    margin-left: 0;
-    display: block;
-    margin-top: 10px;
+    margin: 10px 10px 0;
+    display: inline-block;
+  }
+
+  /* Specific Footer Column Adjustments */
+  .footer-col {
+    margin-bottom: 30px;
+  }
+
+  .footer-logos {
+    gap: 15px;
+  }
+
+  .footer-logos img {
+    max-width: 80px;
   }
 }
 
@@ -2635,8 +2698,8 @@ body {
   }
 
   .nav-logo {
-    height: 60px !important;
-    width: 180px !important;
+    height: 35px !important;
+    width: 105px !important;
     object-fit: contain;
   }
 
