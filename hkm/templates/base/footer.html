@@ -17,7 +17,7 @@
 
     .footer-container {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         gap: 40px;
         max-width: 1400px;
         margin: 0 auto;
@@ -29,167 +29,239 @@
     }
 
     .col-title {
-        font-family: 'inter', sans-serif;
-        font-size: 1.3rem;
+        font-family: 'Inter', sans-serif;
+        font-size: 1.1rem;
         font-weight: 700;
         text-transform: uppercase;
-        margin-bottom: 20px;
+        letter-spacing: 1px;
+        margin-bottom: 24px;
         position: relative;
+        padding-bottom: 12px;
     }
 
     .col-title::after {
         content: '';
         position: absolute;
-        bottom: -8px;
+        bottom: 0;
         left: 0;
-        width: 40px;
+        width: 36px;
         height: 3px;
         background: #e63946;
+        border-radius: 2px;
     }
 
     .about-text {
         color: #aaa;
-        line-height: 1.6;
+        line-height: 1.8;
         font-family: 'Inter', sans-serif;
+        font-size: 0.9rem;
     }
 
     .social-links {
         display: flex;
-        gap: 12px;
+        gap: 10px;
         margin-top: 20px;
     }
 
     .social-icon {
-        width: 40px;
-        height: 40px;
-        background: #252830;
+        width: 38px;
+        height: 38px;
+        background: #1e2128;
+        border: 1px solid rgba(255, 255, 255, 0.08);
         display: flex;
         align-items: center;
         justify-content: center;
-        color: white;
-        transition: 0.3s;
+        color: #aaa;
+        font-size: 0.85rem;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        border-radius: 4px;
     }
 
     .social-icon:hover {
         background: #e63946;
-        transform: scale(1.1) rotate(10deg);
+        color: white;
+        border-color: #e63946;
+        transform: translateY(-3px);
     }
 
     .footer-links {
         list-style: none;
         padding: 0;
+        margin: 0;
     }
 
     .footer-links li {
         margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+    }
+
+    .footer-links li::before {
+        content: '›';
+        color: #e63946;
+        margin-right: 8px;
+        font-weight: bold;
+        font-size: 1.1rem;
+        line-height: 1;
     }
 
     .footer-links a {
         color: #aaa;
         text-decoration: none;
-        transition: 0.3s;
+        transition: all 0.25s ease;
         font-family: 'Inter', sans-serif;
+        font-size: 0.9rem;
     }
 
     .footer-links a:hover {
         color: #e63946;
-        padding-left: 6px;
+        padding-left: 4px;
     }
-
-    .call-icon {
-        color: #e63946;
-        text-shadow: 0 0 6px rgba(230, 57, 70, 0.8);
-    }
-
 
     .contact-info p {
         display: flex;
+        align-items: flex-start;
         gap: 12px;
-        margin-bottom: 12px;
+        margin-bottom: 14px;
         color: #aaa;
-        font-family: 'inter', sans-serif;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.88rem;
+        line-height: 1.6;
     }
 
-    .add {
+    .contact-info i {
         color: #e63946;
-        /* red */
-        font-size: 14px;
+        font-size: 13px;
+        margin-top: 3px;
+        flex-shrink: 0;
     }
 
+    .contact-info a {
+        color: #aaa;
+        text-decoration: none;
+        transition: 0.3s;
+    }
 
-    .email-icon {
+    .contact-info a:hover {
         color: #e63946;
-        /* red */
-        font-size: 14px;
     }
 
-        .contact-info a {
-            color: #fff;
-            text-decoration: none;
-            transition: 0.3s;
-        }
-
-        .contact-info a:hover {
-            color: #e63946;
-        }
-
-        .btn-verify {
-            display: inline-block;
-            color: #e63946;
-            border: 1px solid #e63946;
-            padding: 10px 20px;
-            margin-top: 15px;
-            text-decoration: none;
-            transition: 0.3s;
-            font-family: 'Inter', sans-serif;
-            font-weight: 400;
-        }
+    .btn-verify {
+        display: inline-block;
+        color: #e63946;
+        border: 1px solid #e63946;
+        padding: 9px 18px;
+        margin-top: 14px;
+        text-decoration: none;
+        transition: 0.3s;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.85rem;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        border-radius: 3px;
+    }
 
     .btn-verify:hover {
         background: #e63946;
         color: white;
     }
 
-    /* ===== FOOTER LOGOS ===== */
+    /* ===== FOOTER LOGOS STRIP ===== */
+    .footer-logos-section {
+        max-width: 1400px;
+        margin: 50px auto 0 auto;
+        padding-top: 30px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .footer-logos-label {
+        text-align: center;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.72rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        color: #444;
+        margin-bottom: 20px;
+    }
+
     .footer-logos {
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 20px;
-        margin: 40px 0 20px 0;
+        gap: 12px;
         flex-wrap: wrap;
-        /* Allows wrapping on small screens */
     }
 
-    .footer-logos img {
-        max-width: 100px;
-        height: auto;
-
-        transition: 0.3s;
-    }
-
-    .footer-logos img:hover {
-        filter: grayscale(0%);
-        transform: scale(1.05);
-    }
-
-    .footer-bottom {
-        margin-top: 40px;
-        padding-top: 20px;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        text-align: center;
-        color: #aaa;
-        font-family: 'Inter', sans-serif;
+    .footer-logo-slot {
         display: flex;
-        justify-content: center;
         align-items: center;
-        width: 100%;
+        justify-content: center;
+        background: #1a1d23;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 6px;
+        padding: 10px 18px;
+        transition: all 0.3s ease;
+        height: 72px;
+        min-width: 120px;
+    }
+
+    .footer-logo-slot:hover {
+        border-color: rgba(230, 57, 70, 0.4);
+        background: #1e2128;
+        transform: translateY(-3px);
+    }
+
+    .footer-logo-slot img {
+        max-width: 90px;
+        max-height: 50px;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+        filter: grayscale(20%) brightness(0.9);
+        transition: all 0.3s ease;
+    }
+
+    .footer-logo-slot:hover img {
+        filter: grayscale(0%) brightness(1.05);
+    }
+
+    /* ===== FOOTER BOTTOM ===== */
+    .footer-bottom {
+        max-width: 1400px;
+        margin: 24px auto 0 auto;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
     }
 
     .footer-bottom p {
         margin: 0;
-        text-align: center;
-        width: 100%;
+        color: #555;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.82rem;
+    }
+
+    .footer-bottom-right {
+        display: flex;
+        gap: 20px;
+    }
+
+    .footer-bottom-right a {
+        color: #555;
+        text-decoration: none;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.82rem;
+        transition: color 0.3s;
+    }
+
+    .footer-bottom-right a:hover {
+        color: #e63946;
     }
 
     /* ===== TEXT ANIMATION ===== */
@@ -218,26 +290,46 @@
             transform: translateY(0) rotateX(0deg);
         }
     }
+
+    @media (max-width: 768px) {
+        .footer-bottom {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .footer-bottom-right {
+            justify-content: center;
+        }
+
+        .footer-logo-slot {
+            min-width: 90px;
+            height: 60px;
+        }
+    }
 </style>
 
 <footer class="main-footer">
+
+    <!-- ── 4-Column Grid ── -->
     <div class="footer-container">
+
+        <!-- Col 1: About -->
         <div class="footer-col footer-about">
             <h3 class="col-title anim-text">About Us</h3>
             <p class="about-text anim-text">
-                Harikrishna Multimedia Institute is Surat's premier destination for creative education in Animation,
-                Game
-                Design, VFX, and more.
+                Harikrushna Multimedia Institute is Surat's premier destination for creative education in Animation,
+                Game Design, VFX, and more. ISO&nbsp;9001:2015 Certified.
             </p>
             <div class="social-links">
-                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon" title="Facebook"><i class="fab fa-facebook-f"></i></a>
                 <a href="https://www.instagram.com/harikrushna_multimedia?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
-                    class="social-icon"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
-                <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    class="social-icon" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon" title="YouTube"><i class="fab fa-youtube"></i></a>
+                <a href="#" class="social-icon" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
             </div>
         </div>
 
+        <!-- Col 2: Quick Links -->
         <div class="footer-col">
             <h3 class="col-title anim-text">Quick Links</h3>
             <ul class="footer-links">
@@ -245,109 +337,76 @@
                 <li><a href="{% url 'home' %}#about-us">About Us</a></li>
                 <li><a href="{% url 'courses' %}">Courses</a></li>
                 <li><a href="{% url 'home' %}#portfolios">Portfolios</a></li>
-                <li><a href="{% url 'events' %}">Event</a></li>
+                <li><a href="{% url 'events' %}">Events</a></li>
                 <li><a href="{% url 'contacts' %}">Contact</a></li>
             </ul>
         </div>
 
+        <!-- Col 3: Our Courses -->
         <div class="footer-col">
             <h3 class="col-title anim-text">Our Courses</h3>
             <ul class="footer-links">
                 <li><a href="{% url 'Graphics_Design' %}">Graphics Design</a></li>
                 <li><a href="{% url '2D_Animation' %}">2D Animation</a></li>
-                <li><a href="{% url 'Video_Editing' %}">Video Editing</a></li>
                 <li><a href="{% url '3D_Animation' %}">3D Animation</a></li>
+                <li><a href="{% url 'Video_Editing' %}">Video Editing</a></li>
                 <li><a href="{% url '3D_Architectural' %}">3D Architectural</a></li>
                 <li><a href="{% url 'UI_UX_Design' %}">UI/UX Design</a></li>
             </ul>
         </div>
 
+        <!-- Col 4: Contact -->
         <div class="footer-col">
             <h3 class="col-title anim-text">Contact Us</h3>
             <div class="contact-info">
                 <p>
-                    <i class="fas fa-map-marker-alt add"></i>
-                    M-36/37, 2nd Floor, Raj Corner Shopping Centre, TP 10 Main Rd, near
-                    L.P. Savani, Pal Surat, Gujarat
+                    <i class="fas fa-map-marker-alt"></i>
+                    M-36/37, 2nd Floor, Raj Corner Shopping Centre, TP 10 Main Rd,
+                    near L.P. Savani, Pal, Surat, Gujarat
                 </p>
-
                 <p>
-                    <i class="fas fa-phone call-icon"></i>
+                    <i class="fas fa-phone"></i>
                     +91 96648 33542
                 </p>
-
                 <p>
-                    <i class="fas fa-envelope email-icon"></i>
-                    <a href="mailto:info@hkm.edu">harikrushnamultimedia@gmail.com</a>
+                    <i class="fas fa-envelope"></i>
+                    <a href="mailto:harikrushnamultimedia@gmail.com">harikrushnamultimedia@gmail.com</a>
                 </p>
-                <div class="social-links">
-                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://www.instagram.com/harikrushna_multimedia?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
-                        class="social-icon"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
-                </div>
             </div>
-
-            <div class="footer-col">
-                <h3 class="col-title anim-text">Quick Links</h3>
-                <ul class="footer-links">
-                    <li><a href="{% url 'home' %}">Home</a></li>
-                    <li><a href="{% url 'aboutus' %}">About Us</a></li>
-                    <li><a href="{% url 'courses' %}">Courses</a></li>
-                    <li><a href="{% url 'home' %}#portfolios">Portfolios</a></li>
-                    <li><a href="{% url 'events' %}">Event</a></li>
-                    <li><a href="{% url 'contacts' %}">Contact</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-col">
-                <h3 class="col-title anim-text">Our Courses</h3>
-                <ul class="footer-links">
-                    <li><a href="{% url 'Graphics_Design' %}">Graphics Design</a></li>
-                    <li><a href="{% url '2D_Animation' %}">2D Animation</a></li>
-                    <li><a href="{% url 'Video_Editing' %}">Video Editing</a></li>
-                    <li><a href="{% url '3D_Animation' %}">3D Animation</a></li>
-                    <li><a href="{% url '3D_Architectural' %}">3D Architectural</a></li>
-                    <li><a href="{% url 'UI_UX_Design' %}">UI/UX Design</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-col">
-                <h3 class="col-title anim-text">Contact Us</h3>
-                <div class="contact-info">
-                    <p>
-                        <i class="fas fa-map-marker-alt add"></i>
-                        M-36/37, 2nd Floor, Raj Corner Shopping Centre, TP 10 Main Rd, near
-                        L.P. Savani, Pal Surat, Gujarat
-                    </p>
-
-                    <p>
-                        <i class="fas fa-phone call-icon"></i>
-                        +91 96648 33542
-                    </p>
-
-                    <p>
-                        <i class="fas fa-envelope email-icon"></i>
-                        <a href="mailto:info@hkm.edu">harikrushnamultimedia@gmail.com</a>
-                    </p>
-                </div>
-                <a href="#" class="btn-verify anim-text">Verify Student Certificate</a>
-            </div>
-            <a href="#" class="btn-verify anim-text">Verify Student Certificate</a>
+            <a href="#" class="btn-verify">&#10003;&nbsp;Verify Student Certificate</a>
         </div>
-    </div>
 
+    </div><!-- /.footer-container -->
+
+    <!-- ── Certification / Partner Logos Strip (outside the grid) ── -->
+    <div class="footer-logos-section">
+        <p class="footer-logos-label">Certified &amp; Recognised By</p>
         <div class="footer-logos">
-            <img src="{% static 'images/im1_kekhrs.webp' %}" alt="Logo 1">
-            <img src="{% static 'images/im2_cjjd96.webp' %}" alt="Logo 2">
-            <img src="{% static 'images/im3_arbb3c.webp' %}" alt="Logo 3">
-            <img src="{% static 'images/im4_gnwxms.webp' %}" alt="Logo 4">
+            <div class="footer-logo-slot">
+                <img src="{% static 'images/im1_kekhrs.webp' %}" alt="Certification Logo 1">
+            </div>
+            <div class="footer-logo-slot">
+                <img src="{% static 'images/im2_cjjd96.webp' %}" alt="Certification Logo 2">
+            </div>
+            <div class="footer-logo-slot">
+                <img src="{% static 'images/im3_arbb3c.webp' %}" alt="Certification Logo 3">
+            </div>
+            <div class="footer-logo-slot">
+                <img src="{% static 'images/im4_gnwxms.webp' %}" alt="Certification Logo 4">
+            </div>
         </div>
-
-    <div class="footer-bottom">
-        <p>© 2026 Harikrishna Multimedia Institute. All rights reserved.</p>
     </div>
+
+    <!-- ── Footer Bottom Bar ── -->
+    <div class="footer-bottom">
+        <p>© 2026 Harikrushna Multimedia Institute. All rights reserved.</p>
+        <div class="footer-bottom-right">
+            <a href="{% url 'aboutus' %}">About</a>
+            <a href="{% url 'contacts' %}">Contact</a>
+            <a href="#">Privacy Policy</a>
+        </div>
+    </div>
+
 </footer>
 
 <!-- INTERNAL JS -->
@@ -362,9 +421,7 @@
         targets.forEach(el => {
             const text = el.textContent.trim();
             if (!text) return;
-
             el.innerHTML = "";
-
             [...text].forEach((char, index) => {
                 if (char === " ") {
                     el.appendChild(document.createTextNode(" "));
@@ -384,12 +441,8 @@
                     entry.target.classList.add('reveal-active');
                 }
             });
-        }, {
-            threshold: 0.1  // Triggers when 10% of the element is visible
-        });
+        }, { threshold: 0.1 });
 
-        targets.forEach(target => {
-            observer.observe(target);
-        });
+        targets.forEach(target => observer.observe(target));
     });
 </script>
